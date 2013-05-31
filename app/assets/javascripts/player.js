@@ -15,19 +15,19 @@ $.Class("Player",
       this.scPlayer.bind(SC.Widget.Events.READY, onSoundcloudAPIReady);
     },
     play : function(event){
-      Player.Class.playing = true;
+      Player.playing = true;
       this.actualSong.play(this);
       $(".btn-play i").addClass("icon-pause"); 
       $(".player .songtitle").text(this.actualSong.artist+" - "+this.actualSong.title); 
     },
     stop : function(event){
-      Player.Class.playing = false;
+      Player.playing = false;
       this.actualSong.pause(this);
       $(".btn-play i").removeClass("icon-pause");  
     },
     next : function(event){
       if (this.actualSong){
-        Playlist.remove(this.actualSong);
+        playlist.remove(this.actualSong);
         this.actualSong.stop(this);
         this.actualSong = this.nextSong;
       }else{
@@ -42,7 +42,7 @@ $.Class("Player",
         this.nextSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
       }        
       if(this.actualSong){
-	this.actualSong.loadInto(this);
+	       this.actualSong.loadInto(this);
       }
     },
     onPlayerStateChange : function(event){
@@ -50,13 +50,13 @@ $.Class("Player",
         this.next();
     },
     togglePlayButton : function(event){
-      if (Player.Class.playing == false){
-        if (!Player.actualSong)
-	  Player.next();
+      if (Player.playing == false){
+        if (!player.actualSong)
+	         player.next();
         else
-          Player.play(event);
+           player.play(event);
       }else{
-        Player.stop(event);
+        player.stop(event);
       }
     }
   });

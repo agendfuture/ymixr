@@ -1,4 +1,4 @@
-$.Class("Song",{
+$.Class("Song", {
    staticInit : function(id, type, artist, title){
      switch (type){
        case "yt":
@@ -33,8 +33,8 @@ Song.extend("YtSong",{
       player.ytPlayer = new YT.Player('ytPlayer', {
         videoId: this.id,
         events: {
-          'onReady': $.proxy(Player.play, Player),
-          'onStateChange': $.proxy(Player.onPlayerStateChange, Player)
+          'onReady': $.proxy(player.play, player),
+          'onStateChange': $.proxy(player.onPlayerStateChange, player)
         }
       });
   },

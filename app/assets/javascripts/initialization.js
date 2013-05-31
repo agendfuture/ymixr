@@ -1,17 +1,17 @@
-var Player, Playlist;
+var player, playlist;
 
 $(document).ready(function(){
      SC.initialize({
        client_id: '4534af5d3c15ffc9c03f4ee826ad5265'
      });
 
-     Playlist = new Playlist();
-     Player = new Player(Playlist);
+     playlist = new Playlist();
+     player = new Player(playlist);
     
-     $(document).delegate(".player .btn-play", "click", Player.togglePlayButton)          
-                .delegate(".add-song-btn", "click", Playlist.add)
-                .delegate(".playlist-small .close", "click", Playlist.removeElement)
-                .delegate(".player .btn-forward", "click", $.proxy(Player.next, Player));
+     $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
+                .delegate(".add-song-btn", "click", playlist.add)
+                .delegate(".playlist-small .close", "click", playlist.removeElement)
+                .delegate(".player .btn-forward", "click", $.proxy(player.next, Player));
 
      $(".search-result-list, .playlist-small" ).sortable({
         connectWith: ".connectedSortable",
@@ -26,8 +26,8 @@ $(document).ready(function(){
 // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
-  Player.ytReady = true; 
-}
+  player.ytReady = true; 
+};
 function onSoundcloudAPIReady(){
-  Player.scReady = true;
-}
+  player.scReady = true;
+};

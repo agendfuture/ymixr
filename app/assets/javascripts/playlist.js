@@ -1,4 +1,4 @@
-$.Class("Playlist", {
+$.Class("Playlist", {},{
    init : function(){
 
    },
@@ -12,4 +12,4 @@ $.Class("Playlist", {
    removeElement : function(event){
      $(event.target).closest("li").remove();
    }
-})
+});
