@@ -1,0 +1,11 @@
+/*$(".yt-player")
+        .parent().fadeTo( 1, 0, function() { $(this).removeAttr("style") } );
+
+$("#<%= @song.id %> div.pull-right")
+	.css({ opacity: 1})
+	.append("<%= escape_javascript(raw(@song.player))%>");
+$("#<%= @song.id %> .yt-player")
+	.animate({width: "350px"}, 1500);
+*/
+
+$("#hidden-player").append("<%= escape_javascript(raw(@song.player))%>");

@@ -2,13 +2,35 @@
 <html>
 <head>
   <title>YouMixr - Alpha 0.1 </title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  
 </head>
 <body>
+    <%= render "layouts/header" %>
 
-<%= yield %>
+    <div class="container-fluid">
+	<div id="mainframe"><%= yield %></div>
+      <hr>
 
+      <footer>
+        <p>&copy; Johannes Koch 2013</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
 </body>
+<script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "http://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+</script> 
+
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script src="http://w.soundcloud.com/player/api.js"></script>
 </html>

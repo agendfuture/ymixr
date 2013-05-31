@@ -1,0 +1,40 @@
+<header class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+
+    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+          
+    <%= link_to "YouMixr Alpha 0.1", 'home', :class=>"brand" %>
+    <div class="pull-left">
+    <%= form_tag(search_songs_path, :remote => true, :class => "navbar-form pull-left") do -%>
+      <div class="input-append">
+        <input name="source_filter[]" value="yt" type="hidden">
+    	<input class="span3" name="song_search" id="appendedInputButton" placeholder="Search" type="text">
+    	<button class="btn" type="submit">Go!</button>
+      </div>
+    <% end %>
+    <div class="pull-right player">
+      <button class="btn btn-inverse btn-play">
+        <i class="icon-play icon-white"></i>
+      </button>
+      <button class="btn btn-inverse btn-forward">
+        <i class="icon-step-forward icon-white"></i>
+      </button>
+      <span class="songtitle"></span>
+      <iframe id="scPlayer" class="hidden-player" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F1848538&show_artwork=true"></iframe>
+      <div id="ytPlayer" class="hidden-player"></div>
+   </div>
+    </div>
+    <nav class="nav-collapse collapse">
+      <ul class="nav pull-right">
+        <li><%= link_to "Home",    'home' %></li>
+        <li><%= link_to "Help",    'help' %></li>
+        <li><%= link_to "Sign in", 'sign_in' %></li>
+      </ul>
+    </nav><!--/.nav-collapse -->
+           
+  </div>
+</header>

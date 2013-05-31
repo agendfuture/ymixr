@@ -1,0 +1,20 @@
+SC.initialize({
+  client_id: '<%= SoundcloudConfig.client_id %>'
+});
+
+var track_url = '<%= @song.song_url %>';
+SC.oEmbed(track_url, { show_artwork: false, auto_play: false,  maxwidth: 350 }, function(oEmbed) {
+  $(".sc-player")
+        .parent().fadeTo( 1, 0, function() { $(this).removeAttr("style") } );
+
+  $("#<%= @song.id %> div.pull-right")
+	.css({ opacity: 1})
+	.append(oEmbed['html']);
+  $("#<%= @song.id %> iframe")
+	.addClass("sc-player");
+  $("#<%= @song.id %> .sc-player")
+	.animate({width: "350px"}, 1500);
+ 
+});
+
+

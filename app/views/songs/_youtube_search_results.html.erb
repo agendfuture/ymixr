@@ -1,0 +1,25 @@
+<% @yt_videos.each do |video|
+     title = video.title.split('-', 2)
+     if title.length == 2
+       videotitle = {:title => title[1], :author => title[0]}
+     else
+       videotitle = {:title => title[0], :author => " "}
+     end
+%>
+  <li id="yt:<%= video.unique_id %>" class="clearfix">
+    <div class="search-thumbnail pull-left">
+      <%= image_tag(video.thumbnails[0].url, :size=>"60x60") %>
+    </div>
+    <div>
+        <p class="pull-right">
+         <%= link_to raw("&times;"), remove_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"close" %>          
+         <%= link_to raw("<i class='icon-plus-sign'></i>"), add_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"btn btn-small add-song-btn" %>          
+          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("yt:" + video.unique_id), :remote=>true, :class=>"btn btn-small" %> 
+        </p>
+      <p class="truncate artistname"><%= videotitle[:author]%></p>
+      <p class="truncate songtitle">
+        <%= link_to videotitle[:title], song_path("yt:" + video.unique_id), :remote => true %>
+      </p>
+    </div>
+  </li>
+<% end %>

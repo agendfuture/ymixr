@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
+gem 'bootstrap-sass', '2.1'
+
+gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
+gem 'soundcloud-ruby-api-wrapper'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,6 +29,8 @@ gem 'jquery-rails', '2.0.2'
 group :production do
 	gem 'pg', '0.12.2'
 end
+
+gem 'unicorn'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

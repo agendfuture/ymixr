@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Tilte:</b>
+  <%= @playlist.tilte %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @playlist.description %>
+</p>
+
+<p>
+  <b>Tracking:</b>
+  <%= @playlist.tracking_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @playlist.user %>
+</p>
+
+<p>
+  <b>Published:</b>
+  <%= @playlist.published %>
+</p>
+
+
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>

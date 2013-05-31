@@ -1,3 +1,15 @@
+GIT
+  remote: git://github.com/kylejginavan/youtube_it.git
+  revision: 3a016845ceda6a6a611f96c0a517bf60bbfb925e
+  specs:
+    youtube_it (2.1.13)
+      builder
+      faraday (~> 0.8)
+      nokogiri (~> 1.5.2)
+      oauth (~> 0.4.4)
+      oauth2 (~> 0.6)
+      simple_oauth (>= 0.1.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -29,6 +41,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
+    bootstrap-sass (2.1.0.0)
     builder (3.0.4)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -36,23 +49,45 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    hike (1.2.1)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
+    hike (1.2.2)
+    httpauth (0.2.0)
     i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
       thor (~> 0.14)
     json (1.7.7)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    kgio (2.8.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mime-types (1.21)
-    multi_json (1.6.1)
+    mime-types (1.22)
+    multi_json (1.7.2)
+    multi_xml (0.5.3)
+    multipart (0.2.1)
+    multipart-post (1.2.0)
+    nokogiri (1.5.9)
+    oauth (0.4.7)
+    oauth-active-resource (0.4.6)
+      activeresource
+      multipart
+      oauth (>= 0.3.6)
+    oauth2 (0.9.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     pg (0.12.2)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -77,7 +112,8 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.0.3)
+    raindrops (0.11.0)
+    rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
     sass (3.2.7)
@@ -85,30 +121,42 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    simple_oauth (0.2.0)
+    soundcloud-ruby-api-wrapper (0.4.8)
+      oauth (>= 0.3.6)
+      oauth-active-resource (>= 0.4.4)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.5)
-    thor (0.17.0)
-    tilt (1.3.5)
+    thor (0.18.1)
+    tilt (1.3.7)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.36)
+    tzinfo (0.3.37)
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    unicorn (4.6.2)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass (= 2.1)
   coffee-rails (= 3.2.2)
   jquery-rails (= 2.0.2)
   pg (= 0.12.2)
   rails (= 3.2.12)
   sass-rails (= 3.2.5)
+  soundcloud-ruby-api-wrapper
   sqlite3 (= 1.3.5)
   uglifier (= 1.2.3)
+  unicorn
+  youtube_it!

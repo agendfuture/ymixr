@@ -1,0 +1,57 @@
+// Place all the styles related to the songs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.search-result-list, .search-results{
+  margin-top:10px;
+  p.pull-right {
+    margin-left:5px;
+    margin-right:5px;
+    opacity:0;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+    .yt-player, .sc-player{
+      width:0px;
+      background:#444;
+    }
+    p {
+      text-align:right;
+    }
+    a:visited{
+      visibility:none;
+    }
+  }
+  :hover p.pull-right {
+    opacity:1;
+  }
+  li {
+    display:block;
+    margin:10px 0px;
+    padding:5px;
+    &:hover{
+	background:#ddd;
+    }
+  }
+  p {
+    font-size:13px;
+    line-height:18px;
+    height:18px;
+  }
+  div.search-thumbnail{
+    img {
+    }
+    margin-right:15px;
+    width:60px;
+    height:60px;
+    padding:2px;
+    background-color:#999;
+  }
+}
+
+.search-result-list{
+  .close{
+    display:none;
+  }
+
+}

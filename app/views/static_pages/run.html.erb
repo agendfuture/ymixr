@@ -1,0 +1,20 @@
+
+<div class="container-fluid">
+<div class="row-fluid">
+        <%= render "sidebar" %> 
+        <div class="span6 hero-unit">
+		<h1>Search Results</h1>
+
+      <table class="table table-stripped">
+        <tr>
+          <th>
+            <%= t("activerecord.attributes.video.title", :default => t("activerecord.labels.title", :default => "Title")) %>
+          </th>
+          <th>&nbsp;</th>
+	  <th>Player</th>
+        </tr>
+	<%= if !@search_route.nil? then render @search_route end%>	
+        </table>
+      <div><!--/span-->
+      </div><!--/span-->
+    </div><!--/span-->

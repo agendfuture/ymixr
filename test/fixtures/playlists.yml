@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tilte: MyString
+  description: MyText
+  tracking_id: 1
+  user: 1
+  published: false
+
+two:
+  tilte: MyString
+  description: MyText
+  tracking_id: 1
+  user: 1
+  published: false

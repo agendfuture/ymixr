@@ -1,4 +1,29 @@
 YoumixrOR::Application.routes.draw do
+
+  root :to => "static_pages#home"
+
+  match "home", to: "static_pages#home"
+  match "help", to:  "static_pages#help"
+  match "run", to: "songs#index"
+
+  resources :users
+
+  resources :playlists do
+    member do
+      get 'add'
+      get "remove"
+    end
+  end
+	
+  resources :songs do
+    member do 
+      get 'play'
+    end
+    collection do
+      get "search"
+      post "search"
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

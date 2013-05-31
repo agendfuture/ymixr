@@ -1,0 +1,27 @@
+<p>
+  <b>Title:</b>
+  <%= debug @yt_video 
+      if !@yt_video.nil? 
+	@yt_video.title 
+      elsif !@sc_song.nil?
+        @sc_song[:id]
+      else
+	puts "no title"
+      end
+  %>
+</p>
+
+<p>
+  <%= if !@yt_video.nil? 
+	@yt_video.embed_html5.html_safe 
+      elsif !@sc_song.nil?
+	debug @sc_song
+        @sc_song[:access_token]
+      else
+	puts "no title"
+      end
+  %>
+  </p>
+
+<%= link_to 'Back', songs_path %>
+
