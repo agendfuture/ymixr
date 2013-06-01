@@ -42,10 +42,22 @@ $.Class("Player",
         this.nextSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
       }        
       if(this.actualSong){
+         Player.playing = false;
 	       this.actualSong.loadInto(this);
       }
     },
     onPlayerStateChange : function(event){
+      switch(event.data){
+        case YT.PlayerState.ENDED:
+          this.next();
+          break;
+        case YT.PlayerState.PLAYING:
+          if(Player.playing == false)
+            player.play(event);
+          break;
+        default:
+          break;      
+      }
       if(event.data == YT.PlayerState.ENDED)
         this.next();
     },

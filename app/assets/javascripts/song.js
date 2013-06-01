@@ -17,10 +17,10 @@ $.Class("Song", {
      this.title = title;
    },
    play : function(){
-
+      $('li[id="'+this.type+':'+this.id+'"]').addClass('playing');
    },
    stop : function(){
-
+      $('li[id="'+this.type+':'+this.id+'"]').removeClass('playing');
    }
 });
 
@@ -40,9 +40,11 @@ Song.extend("YtSong",{
   },
   play : function(player){
     player.ytPlayer.playVideo();
+    this._super();
   },
   stop : function(player){
     player.ytPlayer.stopVideo();
+    this._super();
   },
   pause : function(player){
     player.ytPlayer.pauseVideo();
@@ -58,9 +60,11 @@ Song.extend("ScSong",{
   },
   play : function(player){
     player.scPlayer.play();
+    this._super();
   },
   stop : function(player){
     player.scPlayer.stop();
+    this._super();
   },
   pause : function(player){
     player.scPlayer.pause();

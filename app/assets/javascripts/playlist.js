@@ -7,7 +7,7 @@ $.Class("Playlist", {},{
      $(".playlist-small").append($(this).closest("li") );
    },
    remove : function(song){
-     $("#"+song.type+":"+song.id).first().remove();
+     $('.playlist-small li[id="'+song.type+':'+song.id+'"]').first().remove();
    },
    removeElement : function(event){
      $(event.target).closest("li").remove();

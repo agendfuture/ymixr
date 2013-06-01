@@ -11,7 +11,7 @@ $(document).ready(function(){
      $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
                 .delegate(".add-song-btn", "click", playlist.add)
                 .delegate(".playlist-small .close", "click", playlist.removeElement)
-                .delegate(".player .btn-forward", "click", $.proxy(player.next, Player));
+                .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
 
      $(".search-result-list, .playlist-small" ).sortable({
         connectWith: ".connectedSortable",
