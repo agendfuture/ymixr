@@ -13,7 +13,7 @@
        <p>  
          <%= link_to raw("&times;"), remove_playlist_path("sc:" + song.id.to_s ), :remote=>true, :class=>"close" %>          
          <%= link_to raw("<i class='icon-plus-sign'></i>"), add_playlist_path("sc:" + song.id.to_s ), :remote=>true, :class=>"btn btn-small add-song-btn" %>          
-          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("sc:" + song.id.to_s), :remote=>true, :class=>"btn btn-small" %> 
+          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("sc:" + song.id.to_s), :remote=>true, :class=>"btn btn-small play-song-btn" %> 
        </p>
      </div>
  

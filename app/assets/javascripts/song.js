@@ -1,3 +1,8 @@
+function hello(){
+
+alert("Hello World");  
+}
+
 $.Class("Song", {
    staticInit : function(id, type, artist, title){
      switch (type){
@@ -33,7 +38,7 @@ Song.extend("YtSong",{
       player.ytPlayer = new YT.Player('ytPlayer', {
         videoId: this.id,
         events: {
-          'onReady': $.proxy(player.play, player),
+          'onReady': $.proxy(player.ytOnReady, player),
           'onStateChange': $.proxy(player.onPlayerStateChange, player)
         }
       });

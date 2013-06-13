@@ -10,6 +10,8 @@ $(document).ready(function(){
     
      $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
                 .delegate(".add-song-btn", "click", playlist.add)
+                .delegate(".play-song-btn", "click", player.instantPlay)
+                .delegate(".playlist-small li", "dblclick", player.instantPlay)
                 .delegate(".playlist-small .close", "click", playlist.removeElement)
                 .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
 

@@ -14,42 +14,50 @@ $.Class("Player",
       this.scPlayer = SC.Widget("scPlayer");
       this.scPlayer.bind(SC.Widget.Events.READY, onSoundcloudAPIReady);
     },
+    ytOnReady : function(event){
+      //$.proxy(player.onPlayerStateChange, player)
+      player.ytPlayer.addEventListener('onStateChange', $.proxy(player.onPlayerStateChange, player));
+      player.play();
+    },
     play : function(event){
       Player.playing = true;
-      this.actualSong.play(this);
+      player.actualSong.play(player);
       $(".btn-play i").addClass("icon-pause"); 
-      $(".player .songtitle").text(this.actualSong.artist+" - "+this.actualSong.title); 
+      $(".player .songtitle").text(player.actualSong.artist+" - "+player.actualSong.title); 
+    },
+    instantPlay : function(event){
+      playlist.addFirst(this);
+      player.next();
     },
     stop : function(event){
       Player.playing = false;
-      this.actualSong.pause(this);
+      player.actualSong.pause(player);
       $(".btn-play i").removeClass("icon-pause");  
     },
     next : function(event){
-      if (this.actualSong){
-        playlist.remove(this.actualSong);
-        this.actualSong.stop(this);
-        this.actualSong = this.nextSong;
-      }else{
-        if($(".playlist-small").children(":not(.placeholder)").length > 0) 
-           var element = $(".playlist-small li:eq(0)");
-           var identifier = element.attr("id").split(":");
-           this.actualSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
+      if (player.actualSong){
+        playlist.remove(player.actualSong);
+        player.actualSong.stop(player);
+        //player.actualSong = player.nextSong;
       }
-      if($(".playlist-small").children(":not(.placeholder)").length > 1){ 
+      if($(".playlist-small").children(":not(.placeholder)").length > 0){
+          var element = $(".playlist-small li:eq(0)");
+          var identifier = element.attr("id").split(":");
+          player.actualSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
+          Player.playing = false;
+          player.actualSong.loadInto(player);
+      }
+      /*if($(".playlist-small").children(":not(.placeholder)").length > 1){ 
         var element = $(".playlist-small li:eq(1)");
         var identifier = element.attr("id").split(":");
-        this.nextSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
-      }        
-      if(this.actualSong){
-         Player.playing = false;
-	       this.actualSong.loadInto(this);
-      }
+        player.nextSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
+      }     */   
+
     },
     onPlayerStateChange : function(event){
       switch(event.data){
         case YT.PlayerState.ENDED:
-          this.next();
+          player.next();
           break;
         case YT.PlayerState.PLAYING:
           if(Player.playing == false)
@@ -58,8 +66,6 @@ $.Class("Player",
         default:
           break;      
       }
-      if(event.data == YT.PlayerState.ENDED)
-        this.next();
     },
     togglePlayButton : function(event){
       if (Player.playing == false){

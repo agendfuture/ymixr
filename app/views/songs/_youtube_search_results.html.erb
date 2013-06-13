@@ -14,7 +14,7 @@
         <p class="pull-right">
          <%= link_to raw("&times;"), remove_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"close" %>          
          <%= link_to raw("<i class='icon-plus-sign'></i>"), add_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"btn btn-small add-song-btn" %>          
-          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("yt:" + video.unique_id), :remote=>true, :class=>"btn btn-small" %> 
+          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("yt:" + video.unique_id), :remote=>true, :class=>"btn btn-small play-song-btn" %> 
         </p>
       <p class="truncate artistname"><%= videotitle[:author]%></p>
       <p class="truncate songtitle">
