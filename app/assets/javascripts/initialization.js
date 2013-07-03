@@ -24,9 +24,6 @@ function submitSearch(){
 var player, playlist;
 
 $(document).ready(function(){
-     SC.initialize({
-       client_id: '4534af5d3c15ffc9c03f4ee826ad5265'
-     });
 
      playlist = new Playlist();
      player = new Player(playlist);

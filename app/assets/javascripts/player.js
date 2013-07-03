@@ -10,12 +10,8 @@ $.Class("Player",
       this.actualSong = undefined;
       this.nextSong = undefined;
       this.playlist = playlist;
-
-      /*this.scPlayer = SC.Widget("scPlayer");
-      this.scPlayer.bind(SC.Widget.Events.READY, onSoundcloudAPIReady);*/
     },
-    ytOnReady : function(event){
-      //$.proxy(player.onPlayerStateChange, player)
+    ytOnReady : function(event){      
       player.ytPlayer.addEventListener('onStateChange', $.proxy(player.onPlayerStateChange, player));
       player.play();
     },
