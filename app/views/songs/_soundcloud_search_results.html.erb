@@ -1,24 +1,15 @@
-<% @sc_songs.each do |song| 
-     title = song.title.split('-', 2)
-     if song.user.full_name.length == 0 and title.length == 2
-       song.user.full_name = title[0]
-     end
-%>
-  <li id="sc:<%= song.id.to_s  %>"  class="clearfix">
-    <div class="search-thumbnail pull-left"> 
-    <%= if !song.artwork_url.nil? then image_tag(song.artwork_url, :size=>"60x60") end %>
-    </div>
-    <div>
-     <div class="pull-right">
-       <p>  
-         <%= link_to raw("&times;"), remove_playlist_path("sc:" + song.id.to_s ), :remote=>true, :class=>"close" %>          
-         <%= link_to raw("<i class='icon-plus-sign'></i>"), add_playlist_path("sc:" + song.id.to_s ), :remote=>true, :class=>"btn btn-small add-song-btn" %>          
-          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("sc:" + song.id.to_s), :remote=>true, :class=>"btn btn-small play-song-btn" %> 
-       </p>
-     </div>
- 
-      <p class="truncate artistname"><%= song.user.full_name %></p>
-      <p class="truncate songtitle"><%= link_to song.title, song_path("sc:" + song.id.to_s), :remote => true %></p>
-    </div>
-  </li>
-<% end %>
+<li class="clearfix">
+  <div class="search-thumbnail pull-left"> 
+    <img alt="Default" height="60" width="60"/>
+  </div>
+  <div>
+     <p class="pull-right">         
+         <a class="close" data-remote="true">&times;</a>        
+         <a class="btn btn-small add-song-btn" data-remote="true"><i class='icon-plus-sign'></i></a>      
+         <a class="btn btn-small play-song-btn" data-remote="true"><i class='icon-play'></i></a>       
+     </p>
+
+    <p class="truncate artistname"></p>
+    <p class="truncate songtitle"></p>
+  </div>
+</li>

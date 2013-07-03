@@ -9,11 +9,10 @@
           
     <%= link_to "YouMixr Alpha 0.1", 'home', :class=>"brand" %>
     <div class="pull-left">
-    <%= form_tag(search_songs_path, :remote => true, :class => "navbar-form pull-left search-form-header") do -%>
+    <%= form_tag(search_songs_path, :id => "search-form",:remote => true, :class => "navbar-form pull-left search-form-header") do -%>
       <div class="input-append">
-        <input name="source_filter[]" value="yt" type="hidden">
-    	<input class="span3" name="song_search" id="appendedInputButton" placeholder="Search" type="text">
-    	<button class="btn" type="submit">Go!</button>
+      	<input class="span3" name="song_search" id="appendedInputButton" placeholder="Search" type="text">
+      	<button class="btn" type="submit">Go!</button>
       </div>
     <% end %>
     <div class="pull-right player">

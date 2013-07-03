@@ -14,10 +14,12 @@ YoumixrOR::Application.routes.draw do
       get "remove"
     end
   end
-	
+  
+	get '/songs/soundcloudTemplate', to: 'songs#soundcloudTemplate'
+
   resources :songs do
     member do 
-      get 'play'
+      get 'play'      
     end
     collection do
       get "search"

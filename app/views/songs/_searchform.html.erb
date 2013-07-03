@@ -15,7 +15,7 @@
       <%- Youmixr::Plattform.each_pair do |key, value| %>
       <li>
         <label class="checkbox">
-          <input name="source_filter[]" <%=if !params[:source_filter].nil? && params[:source_filter].include?(key) then "checked='checked'" end %> value="<%= key %>" type="checkbox"> <%= value %>
+          <input name="source_filter" <%=if !params[:source_filter].nil? && params[:source_filter].include?(key) then "checked='checked'" end %> value="<%= key %>" type="checkbox"> <%= value %>
         </label>
       </li>
       <% end %>

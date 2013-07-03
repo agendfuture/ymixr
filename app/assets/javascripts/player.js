@@ -11,8 +11,8 @@ $.Class("Player",
       this.nextSong = undefined;
       this.playlist = playlist;
 
-      this.scPlayer = SC.Widget("scPlayer");
-      this.scPlayer.bind(SC.Widget.Events.READY, onSoundcloudAPIReady);
+      /*this.scPlayer = SC.Widget("scPlayer");
+      this.scPlayer.bind(SC.Widget.Events.READY, onSoundcloudAPIReady);*/
     },
     ytOnReady : function(event){
       //$.proxy(player.onPlayerStateChange, player)
@@ -38,7 +38,6 @@ $.Class("Player",
       if (player.actualSong){
         playlist.remove(player.actualSong);
         player.actualSong.stop(player);
-        //player.actualSong = player.nextSong;
       }
       if($(".playlist-small").children(":not(.placeholder)").length > 0){
           var element = $(".playlist-small li:eq(0)");
@@ -46,13 +45,7 @@ $.Class("Player",
           player.actualSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
           Player.playing = false;
           player.actualSong.loadInto(player);
-      }
-      /*if($(".playlist-small").children(":not(.placeholder)").length > 1){ 
-        var element = $(".playlist-small li:eq(1)");
-        var identifier = element.attr("id").split(":");
-        player.nextSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
-      }     */   
-
+      }      
     },
     onPlayerStateChange : function(event){
       switch(event.data){

@@ -8,3 +8,9 @@
 .playlist-small .close{
   display:inline;
 }
+
+@media (min-width: 1200px) { /* header 223px + x + 200px */
+	.playlist{
+    	float:right !important;          
+	}
+}

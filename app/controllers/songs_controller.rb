@@ -8,23 +8,16 @@ class SongsController < ApplicationController
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @songs }
-      end
-
-      return
+      end      
     end
-
   end
 
   # GET /songs/1
   # GET /songs/1.json
   def show
     plattform = params[:id].split(':')
-    if plattform[0] == "yt"
-     
+    if plattform[0] == "yt"     
       @yt_video = YM_Youtube.client.video_by(plattform[1])
-    elsif plattform[0] == "sc"
-      @sc_song = {"id"=>plattform[1], "access_token"=>YM_Soundcloud.consumer.get_request_token}
-    else
     end
 
     respond_to do |format|
@@ -101,38 +94,49 @@ class SongsController < ApplicationController
   end
 
   def play
-    
-    @song = YM_Plattform.create(params[:id])
-    respond_to do |format|
-      format.js {render :template => @song.get_player }
-      format.html { render :template => @song.get_player }
+    plattform = params[:id].split(':')
+    if plattform == "yt"
+      @song = YM_Plattform.create(params[:id])
+      respond_to do |format|
+        format.js {render :template => @song.get_player }
+        format.html { render :template => @song.get_player }
+      end
+    else
+      respond_to do |format|
+        format.js {render :nothing => true }
+        format.html {render :nothing => true }
+      end
     end
+
   end
   
   def search
     # Youtube Controller
-    if params[:source_filter].include?("yt")
-      
-      @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search]).videos
-      @search_route = "youtube_search_results"
+    if !params[:source_filter].nil?
+      if params[:source_filter].include?("yt")
+        
+        @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search]).videos
+        @search_route = "_youtube_search_results"
 
-    # Soundcloud Controller
-    elsif params[:source_filter].include?("sc")
-      
-      @sc_songs = YM_Soundcloud.client.Track.find(:all, :params => {:q => params[:song_search]})
-      @search_route = "soundcloud_search_results"
-
-    elsif params[:source_filter].include?("vi")
-	
+      elsif params[:source_filter].include?("vi")
+  	
+      end
     end
 
     if @search_route.nil?
-      render :nothing
+      render :nothing => true
     else
       respond_to do |format|
-        format.html {render @search_route}
+        format.html {render @search_route, :layout => false}
         format.js
       end
+    end
+  end
+
+  def soundcloudTemplate
+    respond_to do |format|
+      format.html {render "_soundcloud_search_results", :layout => false}
+      format.js 
     end
   end
 

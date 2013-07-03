@@ -22,13 +22,20 @@
     </div><!--/.fluid-container-->
 </body>
 <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
+      // 2. This code loads the Youtube IFrame Player API code asynchronously.
       var tag = document.createElement('script');
       tag.src = "http://www.youtube.com/player_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script> 
 
-<script src="http://connect.soundcloud.com/sdk.js"></script>
 <script src="https://w.soundcloud.com/player/api.js"></script>
+<script src="https://connect.soundcloud.com/sdk.js"></script>
+<script>
+  SC.initialize({
+    client_id: "4534af5d3c15ffc9c03f4ee826ad5265"
+    //,
+    //redirect_uri: "http://example.com/callback.html",
+  });
+</script>
 </html>

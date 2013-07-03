@@ -58,12 +58,15 @@ Song.extend("YtSong",{
 
 Song.extend("ScSong",{
   loadInto : function(player){
-    // get URI
-    SC.get("/tracks/"+this.id,{limit:1},function(tracks){
-      player.scPlayer.load(tracks.permalink_url);
+    SC.stream("/tracks/"+this.id,function(sound){
+      player.scPlayer = sound;
+      player.play();
     });
   },
   play : function(player){
+    /*SC.stream("/tracks/293", function(sound){
+      sound.play();
+    });*/
     player.scPlayer.play();
     this._super();
   },
