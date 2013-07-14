@@ -1,8 +1,3 @@
-function hello(){
-
-alert("Hello World");  
-}
-
 $.Class("Song", {
    staticInit : function(id, type, artist, title){
      switch (type){
@@ -26,6 +21,8 @@ $.Class("Song", {
    },
    stop : function(){
       $('li[id="'+this.type+':'+this.id+'"]').removeClass('playing');
+   },
+   skipTo : function(milliseconds){ 
    }
 });
 
@@ -53,20 +50,23 @@ Song.extend("YtSong",{
   },
   pause : function(player){
     player.ytPlayer.pauseVideo();
-  }
+  },
+   skipTo : function(milliseconds){ 
+   }
 });
 
 Song.extend("ScSong",{
   loadInto : function(player){
+    SC.get("/tracks/"+this.id, {limit: 1}, function(tracks){
+      player.progressbar.slider("option", "max", Math.round(tracks.duration/1000));
+      player.progressbar.show();      
+    });
     SC.stream("/tracks/"+this.id,function(sound){
       player.scPlayer = sound;
       player.play();
     });
   },
   play : function(player){
-    /*SC.stream("/tracks/293", function(sound){
-      sound.play();
-    });*/
     player.scPlayer.play();
     this._super();
   },
@@ -76,5 +76,8 @@ Song.extend("ScSong",{
   },
   pause : function(player){
     player.scPlayer.pause();
+  },
+  skipTo : function(milliseconds){ 
+    player.scPlayer.setPosition(milliseconds);
   }
 });

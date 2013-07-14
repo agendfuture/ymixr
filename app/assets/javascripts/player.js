@@ -3,13 +3,25 @@ $.Class("Player",
   {
     ytReady: false,
     scReady: false,
-    playing: false
+    playing: false,
+    timer: null,
+    progressbar: null
   },
   {
     init : function(playlist) {
       this.actualSong = undefined;
       this.nextSong = undefined;
       this.playlist = playlist;
+      this.progressbar = $("#progressbar").slider({
+            min: 1,
+            max: 60,
+            range: "min",
+            value: 0,
+            slide: function( event, ui ){
+              player.skipTo(ui.value);
+            }
+          });
+      this.timer = new Clock();
     },
     ytOnReady : function(event){      
       player.ytPlayer.addEventListener('onStateChange', $.proxy(player.onPlayerStateChange, player));
@@ -18,6 +30,7 @@ $.Class("Player",
     play : function(event){
       Player.playing = true;
       player.actualSong.play(player);
+      this.timer.start(this.updateProgressbar, 1000);
       $(".btn-play i").addClass("icon-pause"); 
       $(".player .songtitle").text(player.actualSong.artist+" - "+player.actualSong.title); 
     },
@@ -28,6 +41,7 @@ $.Class("Player",
     stop : function(event){
       Player.playing = false;
       player.actualSong.pause(player);
+      this.timer.stop();
       $(".btn-play i").removeClass("icon-pause");  
     },
     next : function(event){
@@ -42,6 +56,10 @@ $.Class("Player",
           Player.playing = false;
           player.actualSong.loadInto(player);
       }      
+    },
+    skipTo : function(seconds){
+      player.timer.elapsedTime = seconds;
+      player.actualSong.skipTo(seconds*1000);
     },
     onPlayerStateChange : function(event){
       switch(event.data){
@@ -65,5 +83,8 @@ $.Class("Player",
       }else{
         player.stop(event);
       }
+    },
+    updateProgressbar : function(){
+        player.progressbar.slider( "value", player.timer.elapsedTime );
     }
   });

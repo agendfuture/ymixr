@@ -62,12 +62,15 @@ a.btn:visited{
 }
 
 header{ 
+.navbar-inner{
+  height: 60px
+}
 .player{
    margin:0px 10px;
    padding:0px 10px;
    border:1px solid #333;
    border-width:0px 1px;
-   height:40px;
+   height:60px;
    .songtitle{
      vertical-align:middle;
      margin:0px 15px;

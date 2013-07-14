@@ -52,6 +52,3 @@ $(document).ready(function(){
 function onYouTubeIframeAPIReady() {
   player.ytReady = true; 
 };
-function onSoundcloudAPIReady(){
-  player.scReady = true;
-};
