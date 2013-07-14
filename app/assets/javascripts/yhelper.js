@@ -6,17 +6,14 @@ $.Class("Clock",
 		interval: 1000
 	}, 
 	{
-		init : function(){
-			this.elapsedTime = 0;
-		},
-		start : function(callback, interval){
+		start : function(callback, interval, seek){
+			this.elapsedTime = seek;
 			this.callback = callback;
 			this.interval = interval;
-			this.intervalObj = setInterval($.proxy(this.tick, this), this.interval)
+			this.intervalObj = window.setInterval($.proxy(this.tick, this), this.interval);
 		},
 		stop : function(){
 			window.clearInterval(this.intervalObj);
-			this.elapsedTime = 0;
 		},
 		tick : function(){
 			this.elapsedTime = this.elapsedTime + 1;

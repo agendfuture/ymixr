@@ -3,11 +3,13 @@
 	text-align: left;
 	background-color: #eee;
 	display: none;
+	margin-top: 5px;
 
 	.ui-slider-handle {
 		position: absolute;
 		z-index: 2;
-		width: 1.2em;
+		width: 5px;
+		border: 2px solid #222;
 		height: 1.2em;
 		cursor: default;
 	}
@@ -18,7 +20,7 @@
 		display: block;
 		border: 0;
 		background-position: 0 0;
-		background-color: 333
+		background-color: #999
 	}
 }
 
@@ -28,7 +30,7 @@
 	.ui-slider-handle {
 		top: -.3em;
 		margin-left: -.6em;
-		background-color: #fff;
+		background-color: #AAA;
 	}
 	.ui-slider-range {
 		top: 0;

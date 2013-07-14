@@ -6,7 +6,8 @@ $.Class("Song", {
        case "sc":
          return new ScSong(id, type, artist, title);
      }
-   }
+   },
+   seek: 0
  },
  {
    init : function(id, type, artist, title){
@@ -22,26 +23,28 @@ $.Class("Song", {
    stop : function(){
       $('li[id="'+this.type+':'+this.id+'"]').removeClass('playing');
    },
-   skipTo : function(milliseconds){ 
-   }
+   skipTo : function(seconds){ },
+   seek : function(){  return 0; }
 });
 
 Song.extend("YtSong",{
   loadInto : function(player){
     if(player.ytPlayer){
       player.ytPlayer.loadVideoById(this.id);
+      player.play();
     }
     else
       player.ytPlayer = new YT.Player('ytPlayer', {
         videoId: this.id,
         events: {
           'onReady': $.proxy(player.ytOnReady, player),
-          'onStateChange': $.proxy(player.onPlayerStateChange, player)
+          'onStateChange': $.proxy(player.onYtPlayerStateChange, player)
         }
       });
   },
   play : function(player){
     player.ytPlayer.playVideo();
+    player.progressbar.slider("option", "max", player.ytPlayer.getDuration());
     this._super();
   },
   stop : function(player){
@@ -51,8 +54,13 @@ Song.extend("YtSong",{
   pause : function(player){
     player.ytPlayer.pauseVideo();
   },
-   skipTo : function(milliseconds){ 
-   }
+  skipTo : function(seconds){ 
+    player.ytPlayer.seekTo(seconds);
+    player.timer.elapsedTime = seconds;
+  },
+  seek : function(){
+    return (player.ytPlayer.getCurrentTime())?(player.ytPlayer.getCurrentTime()):0;
+  }
 });
 
 Song.extend("ScSong",{
@@ -61,7 +69,9 @@ Song.extend("ScSong",{
       player.progressbar.slider("option", "max", Math.round(tracks.duration/1000));
       player.progressbar.show();      
     });
-    SC.stream("/tracks/"+this.id,function(sound){
+    SC.stream("/tracks/"+this.id,{
+      onfinish: player.next
+    }, function(sound){
       player.scPlayer = sound;
       player.play();
     });
@@ -77,7 +87,11 @@ Song.extend("ScSong",{
   pause : function(player){
     player.scPlayer.pause();
   },
-  skipTo : function(milliseconds){ 
-    player.scPlayer.setPosition(milliseconds);
+  skipTo : function(seconds){ 
+    player.scPlayer.setPosition(seconds*1000);
+    player.timer.elapsedTime = Math.round(player.scPlayer.position/1000);
+  },
+  seek : function(){
+    return Math.round(player.scPlayer.position/1000);
   }
 });
