@@ -24,13 +24,20 @@
       </button>
       <span class="songtitle"></span>      
       <div id="ytPlayer" class="hidden-player"></div>
+      <div id='progressbar'></div>
    </div>
     </div>
     <nav class="nav-collapse collapse">
       <ul class="nav pull-right">
         <li><%= link_to "Home",    'home' %></li>
         <li><%= link_to "Help",    'help' %></li>
-        <li><%= link_to "Sign in", 'sign_in' %></li>
+        <li><%= link_to "register", new_user_path %></li>
+        <li><% if current_user.nil? %>
+              <%= link_to "Sign in", new_session_path %>
+            <% else %>
+              Eingeloggt als <%= current_user.name %>.
+              <%= link_to "Logout", session_path( session ), :method => :delete %>
+            <% end %></li>
       </ul>
     </nav><!--/.nav-collapse -->
            
