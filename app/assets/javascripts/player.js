@@ -74,6 +74,9 @@ $.Class("Player",
           if(Player.playing == false)
             player.play(event);
           break;
+        case YT.PlayerState.BUFFERING:
+            player.timer.stop();
+          break;
         default:
           break;      
       }

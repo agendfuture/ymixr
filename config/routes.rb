@@ -6,7 +6,10 @@ YoumixrOR::Application.routes.draw do
   match "help", to:  "static_pages#help"
   match "run", to: "songs#index"
 
-  resources :users
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  match "session", to: "songs#index"
+  resources :users  
+  resource :sessions
 
   resources :playlists do
     member do

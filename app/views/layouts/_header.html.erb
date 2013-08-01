@@ -31,13 +31,13 @@
       <ul class="nav pull-right">
         <li><%= link_to "Home",    'home' %></li>
         <li><%= link_to "Help",    'help' %></li>
-        <li><%= link_to "register", new_user_path %></li>
-        <li><%# if current_user.nil? %>
-              <%# link_to "Sign in", new_session_path %>
-            <%# else %>
-              <!--Eingeloggt als <%#current_user.name %>.-->
-              <% #link_to "Logout", session_path( session ), :method => :delete %>
-            <%# end %></li>
+        <% if current_user.nil? %>
+          <li><%= link_to "Register", new_user_path %></li> 
+          <li><%= link_to "Sign in", new_sessions_path %></li>
+        <% else %>
+          <li><%= link_to "Eingeloggt als "+current_user.name %></li>
+          <li><%= link_to "Logout", log_out_path %></li>
+        <% end %>
       </ul>
     </nav><!--/.nav-collapse -->
            

@@ -1,6 +1,4 @@
-common: &common
-  username: jkoch.contact
-  password: b2a1t20tles
+common: &common  
   dev_key: AI39si6pm6eCLyU1ohl691cjbeivDWGBAtlTrCRRC5ixC0EB3D4jiFwl6km5XVyRk31-AjDih7B8mz7FuuB0m0fESgJ9067mHw
 
 test:
