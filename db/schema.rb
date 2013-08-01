@@ -11,25 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704215012) do
+ActiveRecord::Schema.define(:version => 20130801191207) do
+
+  create_table "histories", :id => false, :force => true do |t|
+    t.integer  "users_id"
+    t.integer  "songs_id"
+    t.datetime "played_at"
+  end
+
+  create_table "playlist_entries", :id => false, :force => true do |t|
+    t.integer "playlists_id"
+    t.integer "songs_id"
+    t.integer "order"
+  end
 
   create_table "playlists", :force => true do |t|
-    t.string   "tilte"
+    t.string   "title"
     t.text     "description"
-    t.integer  "tracking_id"
-    t.integer  "user"
+    t.integer  "creator"
     t.boolean  "published"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "play_count"
   end
-
-  add_index "playlists", ["tracking_id"], :name => "index_playlists_on_tracking_id", :unique => true
 
   create_table "songs", :force => true do |t|
     t.string   "title"
     t.string   "url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.string   "album"
+    t.string   "artist"
+    t.boolean  "valid",      :default => true
+    t.integer  "play_count", :default => 1
+    t.string   "sid",        :default => "",   :null => false
   end
 
   create_table "users", :force => true do |t|

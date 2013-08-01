@@ -24,13 +24,6 @@ class SongsController < ApplicationController
       format.html
       format.js
     end
-
-    #@song = Song.find(params[:id])
-
-    #respond_to do |format|
-    #  format.html # show.html.erb
-    #  format.json { render json: @song }
-    #end
   end
 
   # GET /songs/new
@@ -52,7 +45,7 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(params[:song])
+    @song = Song.create(sid: params[:song], title: params[:song_title])
 
     respond_to do |format|
       if @song.save
@@ -97,6 +90,9 @@ class SongsController < ApplicationController
     plattform = params[:id].split(':')
     if plattform == "yt"
       @song = YM_Plattform.create(params[:id])
+
+      this.create
+
       respond_to do |format|
         format.js {render :template => @song.get_player }
         format.html { render :template => @song.get_player }
