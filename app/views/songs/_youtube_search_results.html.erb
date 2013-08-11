@@ -1,10 +1,8 @@
 <% @yt_videos.each do |video|
      title = video.title.split('-', 2)
-     if title.length == 2
-       videotitle = {:title => title[1], :author => title[0]}
-     else
-       videotitle = {:title => title[0], :author => " "}
-     end
+     videotitle = (title.length == 2)? {:title => title[1], :author => title[0]} : {:title => title[0], :author => ""}
+
+     playlist = (!session[:playlist].nil?)? session[:playlist].id : 0
 %>
   <li id="yt:<%= video.unique_id %>" class="clearfix">
     <div class="search-thumbnail pull-left">
@@ -12,9 +10,9 @@
     </div>
     <div>
         <p class="pull-right">
-         <%= link_to raw("&times;"), remove_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"close" %>          
-         <%= link_to raw("<i class='icon-plus-sign'></i>"), add_playlist_path("yt:" + video.unique_id),:remote=>true, :class=>"btn btn-small add-song-btn" %>          
-          <%= link_to raw("<i class='icon-play'></i>"), play_song_path("yt:" + video.unique_id), :remote=>true, :class=>"btn btn-small play-song-btn" %> 
+         <%= link_to raw("&times;"), "playlists/"+playlist.to_s+"/remove/yt:" + video.unique_id,:remote=>true, :class=>"close" %>          
+         <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/"+playlist.to_s+"/add/yt:" + video.unique_id,:remote=>true, :class=>"btn btn-small add-song-btn" %>          
+          <span title="start playing..." class="btn btn-small play-song-btn"><i class='icon-play'></i></span>
         </p>
       <p class="truncate artistname"><%= videotitle[:author]%></p>
       <p class="truncate songtitle">

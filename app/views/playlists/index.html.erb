@@ -2,9 +2,8 @@
 
 <table>
   <tr>
-    <th>Tilte</th>
+    <th>Title</th>
     <th>Description</th>
-    <th>Tracking</th>
     <th>User</th>
     <th>Published</th>
     <th></th>
@@ -14,10 +13,9 @@
 
 <% @playlists.each do |playlist| %>
   <tr>
-    <td><%= playlist.tilte %></td>
+    <td><%= playlist.title %></td>
     <td><%= playlist.description %></td>
-    <td><%= playlist.tracking_id %></td>
-    <td><%= playlist.user %></td>
+    <td><%=  %></td>
     <td><%= playlist.published %></td>
     <td><%= link_to 'Show', playlist %></td>
     <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>

@@ -7,7 +7,7 @@
       <span class="icon-bar"></span>
     </button>
           
-    <%= link_to "YouMixr Alpha 0.1", 'home', :class=>"brand" %>
+    <%= link_to "YouMixr Alpha 0.1", root_path, :class=>"brand" %>
     <div class="pull-left">
     <%= form_tag(search_songs_path, :id => "search-form",:remote => true, :class => "navbar-form pull-left search-form-header") do -%>
       <div class="input-append">
@@ -35,7 +35,7 @@
           <li><%= link_to "Register", new_user_path %></li> 
           <li><%= link_to "Sign in", new_sessions_path %></li>
         <% else %>
-          <li><%= link_to "Eingeloggt als "+current_user.name %></li>
+          <li><%= link_to "Eingeloggt als "+current_user.name, users_show_path%></li>
           <li><%= link_to "Logout", log_out_path %></li>
         <% end %>
       </ul>

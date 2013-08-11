@@ -6,29 +6,39 @@ YoumixrOR::Application.routes.draw do
   match "help", to:  "static_pages#help"
   match "run", to: "songs#index"
 
-  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_out" => "sessions#destroy", as: :log_out
   match "session", to: "songs#index"
-  resources :users  
+  
+  delete '/histories/:id' => 'histories#destroy'
+
+  match "/users", to: redirect('/run')
+  get '/users/show', to: 'users#show'
+  get '/users/:id', to: 'users#index'  
+  resources :users
+
   resource :sessions
 
-  resources :playlists do
+  resources :playlists, constraints: {id: /\d+/} do
     member do
+      get 'add/:sid', to: :add, constraints: {sid: /yt:(\w|-)+|sc:\d+/}
+      get 'remove/:sid', to: :remove, constraints: {sid: /yt:(\w|-)+|sc:\d+/}
       get 'add'
-      get "remove"
+      get 'remove'
+      get 'select'
     end
   end
   
-	get '/songs/soundcloudTemplate', to: 'songs#soundcloudTemplate'
+  match '/songs/soundcloudTemplate', to: "songs#soundcloudTemplate"
 
-  resources :songs do
+  resources :songs, constraints: {id: /yt:(\w|-)+|sc:\d+/} do  
     member do 
-      get 'play'      
+      get 'play'
     end
     collection do
       get "search"
-      post "search"
     end
   end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

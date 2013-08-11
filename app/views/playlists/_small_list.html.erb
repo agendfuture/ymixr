@@ -1,6 +1,39 @@
 <div class="span3 playlist">
-  <h3>Playlist</h3>
+  <h3>Playlist
+   	<% if !session[:playlist].nil? %>
+  		 	 -<%= link_to session[:playlist].title, playlist_path(session[:playlist].id), class: "playlist-name btn-link" %>
+  	<% end %>
+  </h3>
+   
+	<% if logged_in %>  
+	  <%= form_tag(playlists_path, remote: true) do |f| %>
+	  	<button class="btn btn-inverse btn-small"><i class="icon-white icon-play-circle"></i></button>
+	  	<%= text_field_tag 'title', nil, placeholder: 'Enter Playlist Title...' %>
+	  <% end %>
+	<% end %>
+		
   <ul class="search-results unstyled playlist-small">
-   <li class="placeholder">Playlist ist leer...</li>
+   <% if @playlist_entries.nil? %>
+    <li class="placeholder">Playlist ist leer...</li>
+   <% else %>
+    <% @playlist_entries.each do |song| %>
+      <li id="<%= song.sid %>" class="clearfix">
+        <div class="search-thumbnail thumbnail pull-left">
+          <img data-src="holder.js/60x60" alt="">
+        </div>
+        <div>
+            <p class="pull-right">
+             <%= link_to raw("&times;"), "playlists/"+session[:playlist].id.to_s+"/remove/" + song.sid, :remote=>true, :class=>"close" %>          
+             <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/"+session[:playlist].id.to_s+"/add/" + song.sid, :remote=>true, :class=>"btn btn-small add-song-btn" %>          
+              <span title="start playing..." class="btn btn-small play-song-btn"><i class='icon-play'></i></span>
+            </p>
+          <p class="truncate artistname"><%= song.artist %></p>
+          <p class="truncate songtitle">
+            <%= link_to song.title, song_path(song.sid), :remote => true %>
+          </p>
+        </div>
+      </li>
+    <% end %>
+   <% end %>
   </ul>
 </div>

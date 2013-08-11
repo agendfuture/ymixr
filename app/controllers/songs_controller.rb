@@ -4,7 +4,9 @@ class SongsController < ApplicationController
   def index
     if params[:source_filter].nil?
       @songs = Song.all
-
+      if !session[:playlist].nil?
+        @playlist_entries = Song.all(:joins => :playlist_entries, :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, :select => "songs.*")
+      end
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @songs }
@@ -45,7 +47,7 @@ class SongsController < ApplicationController
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.create(sid: params[:song], title: params[:song_title])
+    @song = Song.create(sid: params[:id], artist: params[:artist], title: params[:title])
 
     respond_to do |format|
       if @song.save
@@ -87,41 +89,40 @@ class SongsController < ApplicationController
   end
 
   def play
+
+    @song = Song.findOrCreate(params[:id], params[:title].strip, params[:artist].strip) 
+
+    if logged_in
+      @history_entry = History.create(user_id: current_user.id, song_id: @song.id, played_at: Time.now)
+      if !@history_entry.save
+        flash[:notice] = "Error while creating a history entry for the current song."
+      end
+    end
+
     plattform = params[:id].split(':')
     if plattform == "yt"
       @song = YM_Plattform.create(params[:id])
-
-      this.create
 
       respond_to do |format|
         format.js {render :template => @song.get_player }
         format.html { render :template => @song.get_player }
       end
-    else
-      respond_to do |format|
-        format.js {render :nothing => true }
-        format.html {render :nothing => true }
-      end
     end
+
+    render :nothing => true
 
   end
   
   def search
-    # Youtube Controller
-    if !params[:source_filter].nil?
-      if params[:source_filter].include?("yt")
-        
-        @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search]).videos
-        @search_route = "_youtube_search_results"
-
-      elsif params[:source_filter].include?("vi")
-  	
-      end
-    end
-
-    if @search_route.nil?
+    # Youtube Search
+    if params[:source_filter].nil? 
       render :nothing => true
     else
+      if params[:source_filter].include?("yt")
+          
+          @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search]).videos
+          @search_route = "_youtube_search_results"
+      end
       respond_to do |format|
         format.html {render @search_route, :layout => false}
         format.js

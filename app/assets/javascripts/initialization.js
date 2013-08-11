@@ -36,6 +36,15 @@ $(document).ready(function(){
                 .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
       
       $(".navbar-form").submit(submitSearch);
+      $(".new_playlist").submit(function(){
+        /*$.ajax({
+                url: $(this).attr('action'), //sumits it to the given url of the form
+                data: $(this).serialize()
+            }).success(function(result){
+                $(".search-result-list").html(result);
+            });*/
+        return false;
+      });
 
       $(".search-result-list, .playlist-small" ).sortable({
         connectWith: ".connectedSortable",

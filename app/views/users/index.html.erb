@@ -1,25 +1,35 @@
-<h1>Listing users</h1>
+<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="span4">
+		<p>
+		  <b>Name:</b>
+		  <%= @user.name %>
+		</p>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+		<p>
+		  <b>Email:</b>
+		  <%= @user.email %>
+		</p>
+	</div>
+	<div class="span8">
+		<% if !@playlists.empty? %>
+			<table class="table">
+			  <tr>
+			    <th>Title</th>
+			    <th></th>
+			  </tr>
 
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.email %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+			<% @playlists.each do |playlist| %>
+			  <tr>
+			    <td><%= playlist.title %></td>
+			    <td><%= link_to 'Show', select_playlist_path(playlist) %></td>
+			  </tr>
+			<% end %>
+			</table>
+		<% else %>
+			<div class="hero-unit">Sorry, we cannot find any playlists of <%= @user.name %>.</div>
+		<% end %>	
+	</div>
+</div>
 
-<br />
-
-<%= link_to 'New User', new_user_path %>
+<%= link_to 'Back', run_path %>

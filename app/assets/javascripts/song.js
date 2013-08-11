@@ -19,6 +19,11 @@ $.Class("Song", {
    },
    play : function(){
       $('li[id="'+this.type+':'+this.id+'"]').addClass('playing');
+
+      $.ajax({
+        url : '/songs/'+this.type+':'+this.id+'/play',
+        data : {artist : this.artist, title : this.title}
+      });
    },
    stop : function(){
       $('li[id="'+this.type+':'+this.id+'"]').removeClass('playing');
