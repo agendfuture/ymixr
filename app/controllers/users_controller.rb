@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
  def index
+  if logged_in and current_user.id == params[:id].to_i
+    redirect_to users_show_path
+    return
+  end
+
  	@user = User.find(params[:id]) 
   @playlists = Playlist.where(creator: @user.id, published: true )
 
@@ -14,9 +19,11 @@ class UsersController < ApplicationController
 	  end 
   flash.clear
  end
+
  def new
    @user = User.new
  end
+
  def create
    @user = User.new(params[:user])
    if @user.save
@@ -25,6 +32,7 @@ class UsersController < ApplicationController
      render "new"
    end
  end
+ 
  def update
    @user = User.find(session[:user_id])
    respond_to do |format|
@@ -40,8 +48,8 @@ class UsersController < ApplicationController
 
  def show
     if logged_in
-     @playlists = Playlist.where(creator: current_user.id)
-     @songs = Song.all(:joins => :histories, :conditions => {:histories => {:user_id => current_user.id}}, :select => "histories.played_at as played_at, histories.id as hid, songs.*", :order => "histories.played_at DESC")
+      @playlists = Playlist.where(creator: current_user.id)
+      @songs = Song.all(:joins => :histories, :conditions => {:histories => {:user_id => current_user.id}}, :select => "histories.played_at as played_at, histories.id as hid, songs.*", :order => "histories.played_at DESC")
     else
       redirect_to run_path, notice: 'You have to login to see user information!'
     end

@@ -11,27 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801191207) do
+ActiveRecord::Schema.define(:version => 20130811134208) do
 
-  create_table "histories", :id => false, :force => true do |t|
-    t.integer  "users_id"
-    t.integer  "songs_id"
+  create_table "histories", :force => true do |t|
     t.datetime "played_at"
+    t.integer  "user_id"
+    t.integer  "song_id"
   end
 
-  create_table "playlist_entries", :id => false, :force => true do |t|
-    t.integer "playlists_id"
-    t.integer "songs_id"
-    t.integer "order"
+  create_table "playlist_entries", :force => true do |t|
+    t.integer  "song_id"
+    t.integer  "playlist_id"
+    t.integer  "order"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "playlists", :force => true do |t|
     t.string   "title"
-    t.text     "description"
+    t.string   "description", :default => ""
     t.integer  "creator"
-    t.boolean  "published"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.boolean  "published",   :default => true
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "play_count"
   end
 
@@ -41,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20130801191207) do
     t.datetime "created_at",                   :null => false
     t.string   "album"
     t.string   "artist"
-    t.boolean  "valid",      :default => true
+    t.boolean  "active",     :default => true
     t.integer  "play_count", :default => 1
     t.string   "sid",        :default => "",   :null => false
   end
@@ -52,15 +54,6 @@ ActiveRecord::Schema.define(:version => 20130801191207) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-  end
-
-  create_table "videos", :force => true do |t|
-    t.string   "title"
-    t.string   "description"
-    t.string   "yt_video_id"
-    t.boolean  "is_complete"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
   end
 
 end

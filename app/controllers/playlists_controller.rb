@@ -7,6 +7,7 @@ class PlaylistsController < ApplicationController
         format.html {redirect_to run_path }
       end
     else
+      @playlists = @playlists.joins(:user).select("playlists.*, users.name as username")
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @playlists }
@@ -21,7 +22,7 @@ class PlaylistsController < ApplicationController
 
     @username = User.find(@playlist.creator).name
 
-    @songs = Song.joins(:playlist_entries).where(playlist_entries: {playlist_id: @playlist.id})
+    @songs = Song.joins(:playlist_entries).where(playlist_entries: {playlist_id: @playlist.id}).select("playlist_entries.id as pl_id, songs.*")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -50,6 +51,7 @@ class PlaylistsController < ApplicationController
   def edit
     if logged_in
       @playlist = Playlist.find(params[:id])
+      @username = User.find(@playlist.creator)
     else 
       respond_to do |format|
         format.html {redirect_to run_path, notice: 'You have to login to create playlists!'}
@@ -61,17 +63,23 @@ class PlaylistsController < ApplicationController
   # POST /playlists.json
   def create
     if logged_in
-      @playlist = Playlist.new(:title => params[:title], :creator => current_user.id)
+      if !params[:title].blank?
+        @playlist = Playlist.new(:title => params[:title], :creator => current_user.id)
 
-      respond_to do |format|
-        if @playlist.save
-          session[:playlist] = @playlist
+        respond_to do |format|
+          if @playlist.save
+            session[:playlist] = @playlist
 
-          format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
-          format.json { render json: @playlist, status: :created, location: @playlist }
-        else
-          format.html { render action: "new" }
-          format.json { render json: @playlist.errors, status: :unprocessable_entity }
+            format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
+            format.json { render json: @playlist, status: :created, location: @playlist }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @playlist.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        respond_to do |format|
+          format.html {redirect_to run_path, notice: 'Cannot create a playlist without a name!'}
         end
       end
     else 
@@ -137,7 +145,7 @@ class PlaylistsController < ApplicationController
       if !session[:playlist].nil?
         params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
 
-        @song = Song.findOrCreate(params[:sid])
+        @song = Song.findOrCreate(params[:sid], params[:title], params[:artist])
         
         @playlist_entry = PlaylistEntry.create(song_id: @song.id, playlist_id: params[:id])
         if !@playlist_entry.save
@@ -156,9 +164,18 @@ class PlaylistsController < ApplicationController
 
   def remove
     if logged_in
+      if !session[:playlist].nil?
+        params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
+        
+        # inner join wäre ebenfalls möglich
+        @song_id = Song.find_by_sid(params[:sid]).id
+        @playlist_entry = PlaylistEntry.where(playlist_id: params[:id], song_id: @song_id)
+        @playlist_entry.first.destroy
+      end    
+
       render :nothing => true
     else 
-      redirect_to run_path, notice: 'You have to login to create playlists!'
+      redirect_to run_path, notice: 'You have to login to remove songs from a playlist!'
     end
   end
 end

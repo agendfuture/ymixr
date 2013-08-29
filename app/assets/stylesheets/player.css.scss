@@ -43,3 +43,20 @@
 		right: 0;
 	}
 }
+
+li.player{
+   margin:5px 10px;
+   padding:0px 10px;
+   border:1px solid #333;
+   border-width:0px 1px;
+   display:none;
+   .songtitle{
+     vertical-align:middle;
+     margin:0px 15px;
+     color:#999;
+   }   
+}
+
+.hidden-player{
+   text-align:center;
+}

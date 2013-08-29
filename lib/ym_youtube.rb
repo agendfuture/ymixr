@@ -19,7 +19,7 @@ class YM_Youtube < YM_Plattform
       @@client
     end
     def init_client
-      @@client ||= YouTubeIt::Client.new(:username => YouTubeITConfig.username , :password => YouTubeITConfig.password , :dev_key => YouTubeITConfig.dev_key)
+      @@client ||= YouTubeIt::Client.new
     end
   end
 end

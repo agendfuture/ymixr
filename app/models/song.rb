@@ -7,14 +7,20 @@ class Song < ActiveRecord::Base
   has_many :histories, :dependent => :destroy
   has_many :users, through: :histories
 
-  def self.findOrCreate(sid, title=nil, artist=nil)
-		@song = Song.find_or_create_by_sid(sid) do |t|
-			t.title = title
-			t.artist = artist
-			t.play_count = 0
+  def self.findOrCreate(sid, title, artist=nil)
+  		if !title.nil?
+			@song = Song.find_or_create_by_sid(sid) do |t|
+				t.title = title.strip
+				if !artist.nil?
+					t.artist = artist.strip
+				end				
+				t.play_count = 0
+			end
+			@song.play_count += 1
+			@song.save
+			@song
+		else
+			raise "No song title!" 
 		end
-		@song.play_count += 1
-		@song.save
-		@song
 	end
 end

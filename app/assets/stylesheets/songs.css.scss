@@ -38,14 +38,14 @@
     line-height:18px;
     height:18px;
   }
-  div.search-thumbnail{
+  .search-thumbnail{
     img {
+      width:80px;
+      height:80px;
+      background-color:#999;
     }
-    margin-right:15px;
-    width:60px;
-    height:60px;
-    padding:2px;
-    background-color:#999;
+    margin-right:10px;
+    padding:8px;    
   }
 }
 

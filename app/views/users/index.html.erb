@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
 <div class="row">
-	<div class="span4">
+	<div class="col-md-4">
 		<p>
 		  <b>Name:</b>
 		  <%= @user.name %>
@@ -11,7 +10,7 @@
 		  <%= @user.email %>
 		</p>
 	</div>
-	<div class="span8">
+	<div class="col-md-8">
 		<% if !@playlists.empty? %>
 			<table class="table">
 			  <tr>
@@ -27,7 +26,11 @@
 			<% end %>
 			</table>
 		<% else %>
-			<div class="hero-unit">Sorry, we cannot find any playlists of <%= @user.name %>.</div>
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    Sorry, we cannot find any playlists of <%= @user.name %>.
+			  </div>
+			</div>
 		<% end %>	
 	</div>
 </div>

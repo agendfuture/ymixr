@@ -1,6 +1,6 @@
 <h1>Listing playlists</h1>
 
-<table>
+<table class="table table-condensed">
   <tr>
     <th>Title</th>
     <th>Description</th>
@@ -10,16 +10,21 @@
     <th></th>
     <th></th>
   </tr>
-
 <% @playlists.each do |playlist| %>
   <tr>
     <td><%= playlist.title %></td>
     <td><%= playlist.description %></td>
-    <td><%=  %></td>
-    <td><%= playlist.published %></td>
+    <td><%= playlist.username %></td>
+    <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
     <td><%= link_to 'Show', playlist %></td>
-    <td><%= link_to 'Edit', edit_playlist_path(playlist) %></td>
-    <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% if logged_in %>
+      <td>
+        <% if current_user.id == playlist.creator %>
+          <%= link_to 'Edit', edit_playlist_path(playlist) %>
+        <% end %>
+      </td>
+      <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
   </tr>
 <% end %>
 </table>

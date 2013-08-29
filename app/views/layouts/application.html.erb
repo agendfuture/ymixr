@@ -3,34 +3,37 @@
 <head>
   <title>YouMixr - Alpha 0.1 </title>
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
     <%= render "layouts/header" %>
-    <div class="container-fluid">
+    <div class="container">
 	   <div id="mainframe">
+        <div class="hidden-player">
+          <div id="ytPlayer"></div>
+        </div>
         <% if notice %>
-          <div class="alert alert-block">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Warning!</h4>
-            <%= notice %>
+          <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>Warning!</strong> <%= notice %>
           </div>
         <% end %>
         <%= yield %>
-
-      </div>
-      
-      <hr>
-
-      <footer>
-        <p><a href="mailto:jkoch.contact@gmail.com?subject=YouMixr%20Review">&copy; Johannes Koch 2013</a></p>
-      </footer>
-
-    </div><!--/.fluid-container-->
+      </div>      
+    </div><!--/.container-->    
+    <%= render "layouts/footer" %>
 </body>
 <script>
       // 2. This code loads the Youtube IFrame Player API code asynchronously.

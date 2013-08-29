@@ -7,7 +7,7 @@ function submitSearch(){
           case "vi":
             var valuesToSubmit = form.serialize()+'&'+element.name+'='+element.value;
             $.ajax({
-                url: form.attr('action'), //sumits it to the given url of the form
+                url: form.attr('action'),
                 data: valuesToSubmit
             }).success(function(result){
                 $(".search-result-list").html(result);
@@ -25,34 +25,34 @@ var player, playlist;
 
 $(document).ready(function(){
 
-     playlist = new Playlist();
-     player = new Player(playlist);
-    
-      $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
-                .delegate(".add-song-btn", "click", playlist.add)
-                .delegate(".play-song-btn", "click", player.instantPlay)
-                .delegate(".playlist-small li", "dblclick", player.instantPlay)
-                .delegate(".playlist-small .close", "click", playlist.removeElement)
-                .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
-      
-      $(".navbar-form").submit(submitSearch);
-      $(".new_playlist").submit(function(){
-        /*$.ajax({
-                url: $(this).attr('action'), //sumits it to the given url of the form
-                data: $(this).serialize()
-            }).success(function(result){
-                $(".search-result-list").html(result);
-            });*/
-        return false;
-      });
+  playlist = new Playlist();
+  player = new Player(playlist);
 
-      $(".search-result-list, .playlist-small" ).sortable({
-        connectWith: ".connectedSortable",
-        start : function(event, ui){
-        },
-        stop : function(event, ui){
-        }
-      }).disableSelection();
+  $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
+            .delegate(".add-song", "click", playlist.add)
+            .delegate(".play-song", "click", player.instantPlay)
+            .delegate(".playlist-small li", "dblclick", player.instantPlay)                
+            .delegate(".playlist-small .close", "click", playlist.removeEvt)
+            .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
+  
+  $(".navbar-form").submit(submitSearch);
+  $(".new_playlist").submit(function(){
+    /*$.ajax({
+            url: $(this).attr('action'), //sumits it to the given url of the form
+            data: $(this).serialize()
+        }).success(function(result){
+            $(".search-result-list").html(result);
+        });*/
+    return false;
+  });
+
+  $(".search-result-list, .playlist-small" ).sortable({
+    connectWith: ".connectedSortable",
+    start : function(event, ui){
+    },
+    stop : function(event, ui){
+    }
+  }).disableSelection();
    
 });
 

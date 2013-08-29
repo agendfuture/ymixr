@@ -2,16 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.playlist-small .btn{
-  display:none;
-}
-.playlist-small .close{
-  display:inline;
+.playlist-small {
+	.btn{
+  		display:none;
+	}
+	.close{
+	  display:inline;
+	}
+	.placeholder:hover{
+		background-color: #fff
+	}	
+	.instantPlay{
+		background-color: #A3D9FF;
+	}
 }
 
 .playlist input{
 	margin-bottom:0px;
 }
+
+
 
 @media (min-width: 1200px) { /* header 223px + x + 200px */
 	.playlist{

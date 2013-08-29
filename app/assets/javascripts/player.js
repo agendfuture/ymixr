@@ -24,7 +24,6 @@ $.Class("Player",
       this.timer = new Clock();
     },
     ytOnReady : function(event){      
-      //player.ytPlayer.addEventListener('onStateChange', $.proxy(player.onPlayerStateChange, player));      
       player.progressbar.show();  
       player.play();
     },
@@ -32,12 +31,15 @@ $.Class("Player",
       Player.playing = true;
       player.actualSong.play(player);
       player.timer.start(this.updateProgressbar, 1000, player.actualSong.seek());
+
       $(".btn-play i").addClass("icon-pause"); 
       $(".player .songtitle").text(player.actualSong.artist+" - "+player.actualSong.title); 
+      $(".player").show();
     },
-    instantPlay : function(event){
-      playlist.addFirst(this);
-      player.next();
+    instantPlay : function(event, settings){
+      $(this).closest("li").addClass("instantPlay");
+      playlist.addFirst($(this).closest("li"));
+      player.next();     
     },
     stop : function(event){
       Player.playing = false;
@@ -52,10 +54,8 @@ $.Class("Player",
         player.timer.stop();
         player.timer.elapsedTime = 0;
       }
-      if($(".playlist-small").children(":not(.placeholder)").length > 0){
-          var element = $(".playlist-small li").first();
-          var identifier = element.attr("id").split(":");
-          player.actualSong = Song.staticInit(identifier[1],identifier[0],element.find(".artistname").text(),element.find(".songtitle").text());  
+      if($(".playlist-small li:not(.placeholder)").length > 0){
+          player.actualSong = Song.createFromElement($(".playlist-small li:not(.placeholder):first"));  
           Player.playing = false;
           player.actualSong.loadInto(player);
       }else{
@@ -77,6 +77,8 @@ $.Class("Player",
         case YT.PlayerState.BUFFERING:
             player.timer.stop();
           break;
+        case YT.PlayerState.PAUSE:
+            player.stop();
         default:
           break;      
       }

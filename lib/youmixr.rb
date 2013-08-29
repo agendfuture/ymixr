@@ -1,4 +1,4 @@
 module Youmixr
 
-  Plattform = {"yt"=>"Youtube", "sc"=>"Soundcloud", "vi"=>"Vimeo"}.freeze
+  Plattform = {"yt"=>"Youtube", "sc"=>"Soundcloud"}.freeze
 end

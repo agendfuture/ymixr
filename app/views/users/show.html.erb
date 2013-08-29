@@ -1,71 +1,65 @@
-<p id="notice"><%= notice %></p>
-<div class="row">
-	<div class="span4">
+<div class="panel panel-default">	
+	<div class="panel-heading">
+		User - <%= link_to raw('Edit <i class="icon-edit"></i>'), edit_user_path(current_user) %>
+	</div>
+	<div class="panel-body">
 		<p>
 		  <b>Name:</b>
 		  <%= current_user.name %>
 		</p>
-
 		<p>
 		  <b>Email:</b>
 		  <%= current_user.email %>
 		</p>
 	</div>
-	<div class="span8">
-		<% if !@playlists.empty? %>
-			<table class="table">
-			  <tr>
-			  	<th>#</th>
-			    <th>Title</th>
-			    <th>Published</th>
-			    <th></th>
-			    <th></th>
-			  </tr>
-
-			<% @playlists.each do |playlist| %>
-			  <tr>
-			  	<td><%= playlist.id %></td>
-			    <td><%= playlist.title %></td>
-			    <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
-			    <td><%= link_to 'Show', select_playlist_path(playlist) %></td>
-			    <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-			  </tr>
-			<% end %>
-			</table>
-		<% else %>
-			<div class="hero-unit">Sorry, we cannot find any playlists of you.</div>
-		<% end %>	
-	</div>
-</div>
-<div class="row">
-	<div class="span12">
-		<% if !@songs.empty? %>
-			<table class="table table-condensed">
-			  <tr>
-			  	<th>#</th>
-			    <th>Title</th>
-			    <th>Artist</th>
-			    <th>Played</th>
-			    <th></th>
-			    <th></th>
-			  </tr>
-
-			<% @songs.each do |song| %>
-			  <tr>
-			  	<td><%= song.id %></td>
-			    <td><%= song.title %></td>
-			    <td><%= song.artist %></td>
-			    <td><%= song.played_at %></td>
-			    <td><%= link_to 'Play', song_path(song.sid) %></td>
-			    <td><%= link_to 'Remove', '/histories/'+song.hid.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-			  </tr>
-			<% end %>
-			</table>
-		<% else %>
-			<div class="hero-unit">Sorry, we cannot find any songs, that you played.</div>
-		<% end %>		
-	</div>
 </div>
 
-<%= link_to 'Edit', edit_user_path(current_user) %> |
-<%= link_to 'Back', users_path %>
+<h2>Your Playlists</h2>
+<% if !@playlists.empty? %>
+	<table class="table user-playlist-table">
+	  <tr>
+	    <th>Title</th>
+	    <th>Published</th>
+	    <th></th>
+	  </tr>
+
+	<% @playlists.each do |playlist| %>
+	  <tr>
+	    <td>
+	    	<%= link_to raw('<i class="icon-edit"></i> '+playlist.title), edit_playlist_path(playlist) %>
+	    </td>
+	    <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
+	    <td><%= link_to 'Play', select_playlist_path(playlist), :class => "btn btn-link" %>
+	    	<%= link_to 'Show', playlist_path(playlist), :class => "btn btn-link" %>
+	   		<%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
+	  </tr>
+	<% end %>
+	</table>
+<% else %>
+	<div class="hero-unit">Sorry, we cannot find any playlists of you.</div>
+<% end %>	
+
+<h2>Your History</h2>
+<% if !@songs.empty? %>
+	<table class="table table-condensed">
+	  <tr>			  	
+	    <th>Title</th>
+	    <th>Artist</th>
+	    <th>Played</th>
+	    <th></th>
+	  </tr>
+
+	<% @songs.each do |song| %>
+	  <tr>			  	
+	    <td><%= song.title %></td>
+	    <td><%= song.artist %></td>
+	    <td><%= song.played_at.to_datetime.to_formatted_s(:long_ordinal) %></td>
+	    <td><%= link_to 'Play', song_path(song.sid), :class => "btn btn-link" %>
+	    	<%= link_to 'Remove', '/histories/'+song.hid.to_s, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
+	  </tr>
+	<% end %>
+	</table>
+<% else %>
+	<div class="hero-unit">Sorry, we cannot find any songs, that you played.</div>
+<% end %>		
+

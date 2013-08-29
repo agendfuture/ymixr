@@ -4,15 +4,15 @@
 
      playlist = (!session[:playlist].nil?)? session[:playlist].id : 0
 %>
-  <li id="yt:<%= video.unique_id %>" class="clearfix">
+  <li class="clearfix" data-song-id="yt:<%= video.unique_id %>">
     <div class="search-thumbnail pull-left">
       <%= image_tag(video.thumbnails[0].url, :size=>"60x60") %>
     </div>
     <div>
         <p class="pull-right">
-         <%= link_to raw("&times;"), "playlists/"+playlist.to_s+"/remove/yt:" + video.unique_id,:remote=>true, :class=>"close" %>          
-         <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/"+playlist.to_s+"/add/yt:" + video.unique_id,:remote=>true, :class=>"btn btn-small add-song-btn" %>          
-          <span title="start playing..." class="btn btn-small play-song-btn"><i class='icon-play'></i></span>
+         <%= link_to raw("&times;"), "playlists/"+playlist.to_s+"/remove/yt:" + video.unique_id, :remote=>true, :class=>"close" %>          
+          <span title="âdd to playlist..." class="btn btn-small add-song"><i class='icon-plus-sign'></i></span>
+          <span title="start playing..." class="btn btn-small play-song"><i class='icon-play'></i></span>
         </p>
       <p class="truncate artistname"><%= videotitle[:author]%></p>
       <p class="truncate songtitle">

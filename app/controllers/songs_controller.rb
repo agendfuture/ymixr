@@ -5,7 +5,9 @@ class SongsController < ApplicationController
     if params[:source_filter].nil?
       @songs = Song.all
       if !session[:playlist].nil?
-        @playlist_entries = Song.all(:joins => :playlist_entries, :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, :select => "songs.*")
+        @playlist_entries = Song.all(:joins => :playlist_entries, 
+                    :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, 
+                    :select => "songs.*, playlist_entries.'order', playlist_entries.id as playlist_entry_id")
       end
       respond_to do |format|
         format.html # index.html.erb
@@ -90,7 +92,7 @@ class SongsController < ApplicationController
 
   def play
 
-    @song = Song.findOrCreate(params[:id], params[:title].strip, params[:artist].strip) 
+    @song = Song.findOrCreate(params[:id], params[:title], params[:artist]) 
 
     if logged_in
       @history_entry = History.create(user_id: current_user.id, song_id: @song.id, played_at: Time.now)

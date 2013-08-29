@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
-gem 'bootstrap-sass', '2.1'
 
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 gem 'soundcloud-ruby-api-wrapper'
@@ -17,6 +16,11 @@ end
 group :assets do
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
+
+  gem "therubyracer"
+  gem "less-rails"
+
+  #gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby

@@ -7,6 +7,16 @@ $.Class("Song", {
          return new ScSong(id, type, artist, title);
      }
    },
+   createFromElement : function(listElement){
+      var identifier = listElement.attr("data-song-id").split(":");
+      return Song.staticInit( identifier[1],
+                              identifier[0],
+                              listElement.find(".artistname").text(),
+                              listElement.find(".songtitle").text());
+   },
+   getDOMElement : function(song){
+      return $("li[data-song-id = '"+song.identifier()+"']");
+   },
    seek: 0
  },
  {
@@ -18,18 +28,19 @@ $.Class("Song", {
      this.title = title;
    },
    play : function(){
-      $('li[id="'+this.type+':'+this.id+'"]').addClass('playing');
+      $('li[data-song-id="'+this.identifier()+'"]').addClass('playing');
 
       $.ajax({
-        url : '/songs/'+this.type+':'+this.id+'/play',
+        url : '/songs/'+this.identifier()+'/play',
         data : {artist : this.artist, title : this.title}
       });
    },
    stop : function(){
-      $('li[id="'+this.type+':'+this.id+'"]').removeClass('playing');
+      $('li[data-song-id="'+this.identifier()+'"]').removeClass('playing');
    },
    skipTo : function(seconds){ },
-   seek : function(){  return 0; }
+   seek : function(){  return 0; },
+   identifier : function(){ return this.type + ":" + this.id; }
 });
 
 Song.extend("YtSong",{
@@ -46,6 +57,7 @@ Song.extend("YtSong",{
           'onStateChange': $.proxy(player.onYtPlayerStateChange, player)
         }
       });
+    $(".hidden-player").show();
   },
   play : function(player){
     player.ytPlayer.playVideo();
@@ -75,11 +87,12 @@ Song.extend("ScSong",{
       player.progressbar.show();      
     });
     SC.stream("/tracks/"+this.id,{
-      onfinish: player.next
-    }, function(sound){
-      player.scPlayer = sound;
-      player.play();
-    });
+        onfinish: player.next
+      }, function(sound){
+        player.scPlayer = sound;
+        player.play();
+      });
+    $(".hidden-player").hide();
   },
   play : function(player){
     player.scPlayer.play();
@@ -93,7 +106,7 @@ Song.extend("ScSong",{
     player.scPlayer.pause();
   },
   skipTo : function(seconds){ 
-    player.scPlayer.setPosition(seconds*1000);
+    player.scPlayer.setPosition(seconds * 1000);
     player.timer.elapsedTime = Math.round(player.scPlayer.position/1000);
   },
   seek : function(){

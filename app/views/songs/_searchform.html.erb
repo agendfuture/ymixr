@@ -1,4 +1,3 @@
-<div class="span3">
   <div class="well sidebar-nav">
 
    <%= form_tag(search_songs_path, :remote => true, :class => "navbar-form") do -%>
@@ -11,6 +10,7 @@
           </div>
       </li>
       <li class="nav-header">Filter</li>
+      <% params[:source_filter] = (params[:source_filter].nil?) ? "yt" : params[:source_filter] %>
       <%- Youmixr::Plattform.each_pair do |key, value| %>
       <li>
         <label class="checkbox">
@@ -22,5 +22,4 @@
     </fieldset>
    <% end -%>
   </div><!--/.well -->
-</div><!--/span-->
 
