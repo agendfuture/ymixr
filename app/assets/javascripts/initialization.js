@@ -41,9 +41,11 @@ $(document).ready(function(){
             .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
   
   $(".navbar-form").submit(submitSearch);
-  $(".new_playlist").submit(function(){
-    return false;
+  $(".new_playlist").bind('ajax:success', function(evt, data, status, xhr){
+    $('.playlist-title').html(' - <a class="btn-link" href="/playlists/'+data.id+'">'+data.title+'</a>');
   });
+
+
 
   $(".search-result-list, .playlist-small" ).sortable({
     connectWith: ".connectedSortable",
