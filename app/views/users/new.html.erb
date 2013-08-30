@@ -1,6 +1,6 @@
 <h1>Anmeldung</h1>
 
-<%= form_for @user do |f| %>
+<%= form_for @user, html:{class: "form-horizontal", role:"form"} do |f| %>
   <% if @user.errors.any? %>
     <div class="error_messages">
       <h2>Fehler bei der Anmeldung</h2>
@@ -11,21 +11,36 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+
+  <div class="form-group">
+    <%= f.label :name, :class => "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.text_field :name, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="form-group">
+    <%= f.label :email, :class => "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.text_field :email, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+  <div class="form-group">
+    <%= f.label :password, :class => "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.password_field :password, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
+  <div class="form-group">
+    <%= f.label :password_confirmation, :class => "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.password_field :password_confirmation, :class => "form-control" %>
+    </div>
   </div>
-  <div class="actions"><%= f.submit %></div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => "btn btn-default" %>
+    </div>
+  </div>
+
 <% end %>

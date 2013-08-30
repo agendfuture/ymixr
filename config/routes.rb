@@ -4,14 +4,14 @@ YoumixrOR::Application.routes.draw do
 
   match "home", to: "static_pages#home"
   match "help", to:  "static_pages#help"
-  match "run", to: "songs#index"
+  match "run", to: "static_pages#run"
 
   get "log_out" => "sessions#destroy", as: :log_out
-  match "session", to: "songs#index"
+  match "session", to: "static_pages#index"
   
   delete '/histories/:id' => 'histories#destroy'
 
-  match "/users", to: redirect('/run')
+  #match "/users", to: redirect('/run')
   get '/users/show', to: 'users#show'
   get '/users/:id', to: 'users#index', constraints: {id: /\d+/}
   resources :users

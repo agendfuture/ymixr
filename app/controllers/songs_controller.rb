@@ -4,11 +4,7 @@ class SongsController < ApplicationController
   def index
     if params[:source_filter].nil?
       @songs = Song.all
-      if !session[:playlist].nil?
-        @playlist_entries = Song.all(:joins => :playlist_entries, 
-                    :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, 
-                    :select => "songs.*, playlist_entries.'order', playlist_entries.id as playlist_entry_id")
-      end
+      
       respond_to do |format|
         format.html # index.html.erb
         format.json { render json: @songs }
@@ -122,7 +118,7 @@ class SongsController < ApplicationController
     else
       if params[:source_filter].include?("yt")
           
-          @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search]).videos
+          @yt_videos = YM_Youtube.client.videos_by(:query => params[:song_search], :page => 1, :per_page => 10).videos
           @search_route = "_youtube_search_results"
       end
       respond_to do |format|

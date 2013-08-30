@@ -1,4 +1,7 @@
 function submitSearch(){
+  $('.search-result-loading, .search-result-container').show();
+  $('.search-result-list').hide();
+
   serializedFilters = $(".sidebar-nav :input[name='source_filter']").serializeArray();
   form = $(this);
   serializedFilters.forEach(function(element, index, array){ 
@@ -9,8 +12,10 @@ function submitSearch(){
             $.ajax({
                 url: form.attr('action'),
                 data: valuesToSubmit
-            }).success(function(result){
+            }).success(function(result){                      
                 $(".search-result-list").html(result);
+                $('.search-result-loading').hide();
+                $('.search-result-list').show(1000);
             });
             break;
           case "sc":   
@@ -31,18 +36,12 @@ $(document).ready(function(){
   $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
             .delegate(".add-song", "click", playlist.add)
             .delegate(".play-song", "click", player.instantPlay)
-            .delegate(".playlist-small li", "dblclick", player.instantPlay)                
+            .delegate(".playlist-small li:not(.placeholder)", "dblclick", player.instantPlay)                
             .delegate(".playlist-small .close", "click", playlist.removeEvt)
             .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
   
   $(".navbar-form").submit(submitSearch);
   $(".new_playlist").submit(function(){
-    /*$.ajax({
-            url: $(this).attr('action'), //sumits it to the given url of the form
-            data: $(this).serialize()
-        }).success(function(result){
-            $(".search-result-list").html(result);
-        });*/
     return false;
   });
 

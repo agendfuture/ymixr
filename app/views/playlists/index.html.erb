@@ -1,4 +1,4 @@
-<h1>Listing playlists</h1>
+<h1>Listing playlists <%= link_to raw('New Playlist <i class="icon-plus"></i>'), new_playlist_path, :class => "btn btn-link" %></h1>
 
 <table class="table table-condensed">
   <tr>
@@ -7,8 +7,6 @@
     <th>User</th>
     <th>Published</th>
     <th></th>
-    <th></th>
-    <th></th>
   </tr>
 <% @playlists.each do |playlist| %>
   <tr>
@@ -16,19 +14,19 @@
     <td><%= playlist.description %></td>
     <td><%= playlist.username %></td>
     <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
-    <td><%= link_to 'Show', playlist %></td>
-    <% if logged_in %>
-      <td>
-        <% if current_user.id == playlist.creator %>
-          <%= link_to 'Edit', edit_playlist_path(playlist) %>
+    <td><%= link_to 'Show', playlist, :class => "btn btn-link" %>
+        <%= link_to 'Play', select_playlist_path(playlist), :class => "btn btn-link" %>
+        <% if logged_in %>
+          <% if current_user.id == playlist.creator %>
+            <%= link_to 'Edit', edit_playlist_path(playlist), :class => "btn btn-link" %>
+          <% end %>
+        
+          <%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %>
         <% end %>
-      </td>
-      <td><%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
+    </td>
   </tr>
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'New Playlist', new_playlist_path %>
+

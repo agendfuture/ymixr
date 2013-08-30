@@ -1,7 +1,7 @@
 <div class="col-md-4 playlist">
   <h3>Playlist
    	<% if !session[:playlist].nil? %>
-  		 	 -<%= link_to session[:playlist].title, playlist_path(session[:playlist].id), class: "playlist-name btn-link" %>
+  		 	 - <%= link_to session[:playlist].title, playlist_path(session[:playlist].id), class: "playlist-name btn-link" %>
   	<% end %>
   </h3>
    

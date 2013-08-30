@@ -14,7 +14,7 @@
 	</div>
 </div>
 
-<h2>Your Playlists</h2>
+<h2>Your Playlists <%= link_to raw('New Playlist <i class="icon-plus"></i>'), new_playlist_path, :class => "btn btn-link" %></h2>
 <% if !@playlists.empty? %>
 	<table class="table user-playlist-table">
 	  <tr>

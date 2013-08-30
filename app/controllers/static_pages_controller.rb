@@ -6,8 +6,13 @@ class StaticPagesController < ApplicationController
   end
 
   def run
-	yt_client
-	@videos = @yt_client.videos_by(:most_viewed).videos
+	if !session[:playlist].nil?
+        @playlist_entries = Song.all(:joins => :playlist_entries, 
+                    :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, 
+                    :select => "songs.*, playlist_entries.'order', playlist_entries.id as playlist_entry_id")
+    end
+
+	render template: "layouts/index"
   end
 
 end

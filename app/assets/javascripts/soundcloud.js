@@ -1,6 +1,6 @@
 function scSearch(searchString){
-	$(".search-result-list").children().remove();
-	SC.get("/tracks", {q: searchString}, scPrintTracks);
+  $(".search-result-list").children().remove();
+	SC.get("/tracks", {q: searchString, limit: 10}, scPrintTracks);
 }
 
 function scPrintTracks(tracks){
@@ -13,6 +13,10 @@ function scPrintTracks(tracks){
   			clone.find(".songtitle").html(track.title);
   			clone.find("img").attr('src', track.artwork_url);
   			$(".search-result-list").append(clone);
-  		});        	
+  		}); 
+
+      $('.search-result-loading').hide();
+      $('.search-result-list').show(1000);
+
     });
 }

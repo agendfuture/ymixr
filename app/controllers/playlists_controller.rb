@@ -54,7 +54,7 @@ class PlaylistsController < ApplicationController
       @username = User.find(@playlist.creator)
     else 
       respond_to do |format|
-        format.html {redirect_to run_path, notice: 'You have to login to create playlists!'}
+        format.html {redirect_to run_path, notice: 'You have to login to edit playlists!'}
       end
     end
   end
@@ -63,8 +63,9 @@ class PlaylistsController < ApplicationController
   # POST /playlists.json
   def create
     if logged_in
-      if !params[:title].blank?
-        @playlist = Playlist.new(:title => params[:title], :creator => current_user.id)
+      if !params[:playlist][:title].blank?
+        @playlist = Playlist.new(:title => params[:playlist][:title], :creator => current_user.id)
+        @playlist.update_attributes(params[:playlist])
 
         respond_to do |format|
           if @playlist.save

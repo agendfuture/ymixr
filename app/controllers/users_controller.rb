@@ -27,9 +27,9 @@ class UsersController < ApplicationController
  def create
    @user = User.new(params[:user])
    if @user.save
-     redirect_to root_url, :notice => "Erfolgreich angemeldet!"
+     redirect_to new_sessions_path, :notice => "Welcome to youmixr!"
    else
-     render "new"
+     redirect_to new_user_path, :notice => "Sorry! An Error occured. Please repeat the previous steps."
    end
  end
  
