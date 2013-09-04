@@ -6,13 +6,10 @@ class StaticPagesController < ApplicationController
   end
 
   def run
-	if !session[:playlist].nil?
-        @playlist_entries = Song.all(:joins => :playlist_entries, 
-                    :conditions => {:playlist_entries => {:playlist_id => session[:playlist].id}}, 
-                    :select => 'songs.*, playlist_entries."order", playlist_entries.id as playlist_entry_id')
-    end
+	   if !session[:playlist].nil?
+        @playlist_entries = PlaylistEntry.where(playlist_id: session[:playlist].id).ordered
+      end
 
-	render template: "layouts/index"
+	   render template: "layouts/index"
   end
-
 end

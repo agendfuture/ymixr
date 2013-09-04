@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.12'
 
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
-gem 'soundcloud-ruby-api-wrapper'
+#gem 'soundcloud-ruby-api-wrapper'
+
+gem 'resort'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

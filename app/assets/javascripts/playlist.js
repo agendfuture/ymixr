@@ -1,7 +1,7 @@
 $.Class("Playlist", {
-    indexOf : function(song, order){
+    indexOf : function(song, entry_id){
       for (var i = 0; i < playlist.playlist_entries.length; i++){
-        if (song == playlist.playlist_entries[i].song && order == playlist.playlist_entries[i].order )
+        if (song == playlist.playlist_entries[i].song && entry_id == playlist.playlist_entries[i].entry_id )
           return i;
       }      
     }
@@ -11,17 +11,18 @@ $.Class("Playlist", {
    },
    add : function(event){
       $(".playlist-small .placeholder").hide();
-      songElement = $(this).closest("li");
-      $(".playlist-small").append(songElement);
-      song = Song.createFromElement(songElement);
+      var listElement = $(this).closest("li");
+      $(".playlist-small").append(listElement);
+      song = Song.createFromElement(listElement);
 
       $.ajax({
-        url : '/playlist/addSong/'+song.identifier(),  
+        url : '/playlists/addSong/'+song.identifier(),  
         data : {artist : song.artist, title : song.title}   
       }).success(function(result){
-        entry = new PlaylistEntry(song, $.parseJSON(result).order);
+        var entry = new PlaylistEntry(song, $.parseJSON(result).id);
         playlist.playlist_entries.push(entry);
-        songElement.find(".close").attr('href','/playlist/removeSong/'+ song.identifier() + '/' + entry.order);
+        listElement.find(".close").attr('href','/playlists/removeSong/'+ entry.entry_id);
+        listElement.attr("data-entry-id", entry.entry_id);
       });
 
       return false
@@ -36,6 +37,12 @@ $.Class("Playlist", {
    remove : function(song){
      $(Song.getDOMElement(song)).remove();
    },
+   reorder : function(event, ui){
+      var next = ($(ui.item).next().length > 0) ? ("/" + $(ui.item).next().attr("data-entry-id")) : "";
+      $.ajax({
+        url : '/playlists/reorder/' + ui.item.attr("data-entry-id") + next
+      });
+   },
    save : function(){
 
    },
@@ -49,18 +56,18 @@ $.Class("Playlist", {
 
 $.Class("PlaylistEntry", { 
   createEntry : function(listElement){
-    return new PlaylistEntry(Song.createFromElement(listElement), parseInt(listElement.attr("data-playlist-order")))
+    return new PlaylistEntry(Song.createFromElement(listElement), parseInt(listElement.attr("data-entry-id")))
   }
 }, {
-  init : function(song, order){
+  init : function(song, id){
     this.song = song;
-    this.order = order;
+    this.entry_id = id;
   },
   delete : function(){
     $.ajax({
-        url : '/playlist/removeSong/'+this.song.identifier()+"/"+this.order        
+        url : '/playlists/removeSong/'+this.entry_id        
       }).success(function(result){
-        playlist.playlist_entries.splice(playlist.indexOf(this.song, this.order), 1);
+        playlist.playlist_entries.splice(playlist.indexOf(this.song, this.entry_id), 1);
       });
   }
 });

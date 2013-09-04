@@ -18,23 +18,23 @@
    <% if @playlist_entries.nil? %>
     <li class="placeholder">Playlist ist leer...</li>
    <% else %>
-    <% @playlist_entries.each do |song| %>
-      <li class="clearfix" data-song-id="<%= song.sid %>" data-playlist-order="<%= song.order %>">
+    <% @playlist_entries.each do |entry| %>
+      <li class="clearfix" data-song-id="<%= entry.song.sid %>" data-entry-id="<%= entry.id %>">
         <div class="search-thumbnail thumbnail pull-left">
          
           <i class='icon-play-circle icon-large'></i>
         </div>
         <div>
             <p class="pull-right">
-             <%= link_to raw("&times;"), playlist_playlist_entry_remove_path(session[:playlist].id, song.playlist_entry_id), 
+             <%= link_to raw("&times;"), playlist_playlist_entry_remove_path(session[:playlist].id, entry.id), 
                     :method => :delete, :remote=>true, :class=>"close" %> 
                      
-             <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/"+session[:playlist].id.to_s+"/add/" + song.sid, :remote=>true, :class=>"btn btn-small add-song" %>          
+             <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/addSong/" + entry.song.sid, :remote=>true, :class=>"btn btn-small add-song" %>          
               <span title="start playing..." class="btn btn-small play-song"><i class='icon-play'></i></span>
             </p>
-          <p class="truncate artistname"><%= song.artist %></p>
+          <p class="truncate artistname"><%= entry.song.artist %></p>
           <p class="truncate songtitle">
-            <%= link_to song.title, song_path(song.sid), :remote => true %>
+            <%= link_to entry.song.title, song_path(entry.song.sid), :remote => true %>
           </p>
         </div>
       </li>

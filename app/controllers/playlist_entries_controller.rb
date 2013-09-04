@@ -1,20 +1,18 @@
 class PlaylistEntriesController < ApplicationController
  def create
-  if logged_in      
-    if !session[:playlist].nil?
+  if choosed_own_playlist      
       params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
 
-      @song = Song.findOrCreate(params[:sid], params[:title], params[:artist])
-      
-      @playlist_entry = PlaylistEntry.create(song_id: @song.id, playlist_id: params[:id])
-      @playlist_entry.order = PlaylistEntry.where(song_id: @song.id, playlist_id: params[:id]).count
-      if !@playlist_entry.save
-        flash[:notice] = "Error while creating a playlist entry for the current song."
+      song = Song.findOrCreate(params[:sid], params[:title], params[:artist])
+   
+      entry = PlaylistEntry.create(playlist_id: params[:id], song_id: song.id)
+
+      if !entry.save
+        flash[:notice] = "Error while creating a new playlist entry!"
       end
-    end
-    
+
     respond_to do |format|
-      format.html {render :text => "{\"order\" : #{@playlist_entry.order}}"}
+      format.html {render :text => "{\"id\" : #{entry.id}}"}
       format.js 
     end      
   else 
@@ -22,31 +20,37 @@ class PlaylistEntriesController < ApplicationController
   end
  end
 
- def remove
-   if logged_in
-      if !session[:playlist].nil?
-        # inner join wäre ebenfalls möglich
-        @song_id = Song.find_by_sid(params[:sid]).id
-        @playlist_entry = PlaylistEntry.where(playlist_id: session[:playlist].id, song_id: @song_id, order: params[:order]).first
-        @playlist_entry.destroy
-      end    
-      render :nothing => true
+ def destroy
+   if choosed_own_playlist
+      if !(entry = PlaylistEntry.find(params[:playlist_entry_id])).nil?
+        entry.destroy      
+      else
+        flash[:notice] = "Cannot find any Playlist Entry!"
+      end
+      redirect_to :back
     else 
       redirect_to run_path, notice: 'You have to login to remove songs from a playlist!'
     end
  end
 
- def destroy
-   if logged_in
-      if !session[:playlist].nil?
-        params[:playlist_id] = (params[:playlist_id] == session[:playlist].id)? params[:playlist_id] : session[:playlist].id
+ # GET playlist_entry_id, next_playlist_entry_id
+ 
+ def reorder
+  if choosed_own_playlist
+    
+    playlist = PlaylistEntry.where(playlist_id: session[:playlist].id)
 
-        @playlist_entry = PlaylistEntry.find(params[:playlist_entry_id])
-        @playlist_entry.destroy
-      end    
-      redirect_to :back
-    else 
-      redirect_to run_path, notice: 'You have to login to remove songs from a playlist!'
+    entry = playlist.find(params[:playlist_entry_id])
+
+    if !params[:next_playlist_entry_id].nil?
+      next_entry = playlist.find(params[:next_playlist_entry_id])
+      entry.append_to(next_entry.previous)      
+    else
+      entry.append_to(playlist.last_in_order)
     end
+    render :nothing => true
+  else
+    redirect_to run_path, notice: 'You have to login to reorder songs in a playlist!'
+  end
  end
 end

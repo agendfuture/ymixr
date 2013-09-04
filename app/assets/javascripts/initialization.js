@@ -54,6 +54,8 @@ $(document).ready(function(){
     stop : function(event, ui){
     }
   }).disableSelection();
+
+  $( ".playlist-small" ).on( "sortupdate", playlist.reorder);
    
 });
 

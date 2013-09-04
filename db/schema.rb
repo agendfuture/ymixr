@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811134208) do
+ActiveRecord::Schema.define(:version => 20130904164450) do
 
   create_table "histories", :force => true do |t|
     t.datetime "played_at"
@@ -22,10 +22,14 @@ ActiveRecord::Schema.define(:version => 20130811134208) do
   create_table "playlist_entries", :force => true do |t|
     t.integer  "song_id"
     t.integer  "playlist_id"
-    t.integer  "order"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "next_id"
+    t.boolean  "first"
   end
+
+  add_index "playlist_entries", ["first"], :name => "index_playlist_entries_on_first"
+  add_index "playlist_entries", ["next_id"], :name => "index_playlist_entries_on_next_id"
 
   create_table "playlists", :force => true do |t|
     t.string   "title"

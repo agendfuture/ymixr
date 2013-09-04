@@ -18,24 +18,23 @@ YoumixrOR::Application.routes.draw do
 
   resource :sessions
 
-  get '/playlist/addSong/:sid', to: 'playlist_entries#create', constraints: {sid: /yt:(\w|-)+|sc:\d+/}
-  get '/playlist/removeSong/:sid/:order', to: 'playlist_entries#remove', constraints: {sid: /yt:(\w|-)+|sc:\d+/, order: /\d+/}
-
   resources :playlists, constraints: {id: /\d+/} do
     member do
-      get 'add/:sid/:order', to: :add, constraints: {sid: /yt:(\w|-)+|sc:\d+/, oder: /\d+/}
-      get 'remove/:sid/:order', to: :remove, constraints: {sid: /yt:(\w|-)+|sc:\d+/, order: /\d+/}
-      get 'add/:sid', to: :add, constraints: {sid: /yt:(\w|-)+|sc:\d+/}
-      get 'remove/:sid', to: :remove, constraints: {sid: /yt:(\w|-)+|sc:\d+/}
-      get 'add'
-      get 'remove'
       get 'select'
     end
 
-    resources :playlist_entries, only: [:destroy, :create] do
+    collection do
+      get 'addSong/:sid', to: 'playlist_entries#create', constraints: {sid: /yt:(\w|-)+|sc:\d+/}
+      get 'removeSong/:playlist_entry_id', to: 'playlist_entries#destroy', constraints: {playlist_entry_id: /\d+/}
+      get 'reorder/:playlist_entry_id/:next_playlist_entry_id', 
+          to: 'playlist_entries#reorder', constraints: {playlist_entry_id: /\d+/, next_playlist_entry_id: /\d+/}
+      get 'reorder/:playlist_entry_id', 
+          to: 'playlist_entries#reorder', constraints: {playlist_entry_id: /\d+/}
+    end
+
+    resources :playlist_entries, only: [:destroy, :create], constraints: {id: /\d+/} do
       post 'add', to: :create
       delete 'remove', to: :destroy 
-
     end
   end
   

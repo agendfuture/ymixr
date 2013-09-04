@@ -132,51 +132,16 @@ class PlaylistsController < ApplicationController
 
   #GET /playlists/:id/select
   def select
-    if logged_in
-      session[:playlist] = Playlist.where(id: params[:id], creator: current_user.id).first      
-      redirect_to run_path  
-    else
-      redirect_to run_path, notice: "You have to login, if you wan't to listen to a playlist!"
-    end
-  end
-
-  # GET /playlists/:id/add/:sid
-  def add
-    if logged_in      
-      if !session[:playlist].nil?
-        params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
-
-        @song = Song.findOrCreate(params[:sid], params[:title], params[:artist])
-        
-        @playlist_entry = PlaylistEntry.create(song_id: @song.id, playlist_id: params[:id])
-        if !@playlist_entry.save
-          flash[:notice] = "Error while creating a playlist entry for the current song."
-        end
+    if !(session[:playlist] = Playlist.find_by_id(params[:id])).nil?      
+      if session[:playlist].published == false
+        if !logged_in or (logged_in and session[:playlist].creator != current_user.id)
+          flash[:notice] = "The creator of the choosen playlist, marked it as private."
+          session[:playlist] = nil
+        end        
       end
-      
-      respond_to do |format|
-        format.html {render :nothing => true}
-        format.js {render :nothing => true}
-      end      
-    else 
-      redirect_to run_path, notice: 'You have to login to create or change playlists!'      
+    else
+      flash[:notice] = "There is no playlist with ID " + params[:id]
     end
-  end
-
-  def remove
-    if logged_in
-      if !session[:playlist].nil?
-        params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
-        
-        # inner join wäre ebenfalls möglich
-        @song_id = Song.find_by_sid(params[:sid]).id
-        @playlist_entry = PlaylistEntry.where(playlist_id: params[:id], song_id: @song_id)
-        @playlist_entry.first.destroy
-      end    
-
-      render :nothing => true
-    else 
-      redirect_to run_path, notice: 'You have to login to remove songs from a playlist!'
-    end
+    redirect_to run_path 
   end
 end
