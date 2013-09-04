@@ -13,7 +13,8 @@
 	  	<%= text_field_tag 'playlist[title]', nil, placeholder: 'Enter Playlist Title...' %>
 	  <% end %>
 	<% end %>
-		
+	<%= @playlist_entries_1.inspect %>
+  <%= session[:playlist].id %>
   <ul class="search-results list-unstyled playlist-small">
    <% if @playlist_entries.nil? %>
     <li class="placeholder">Playlist ist leer...</li>
