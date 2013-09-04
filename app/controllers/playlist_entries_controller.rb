@@ -44,7 +44,11 @@ class PlaylistEntriesController < ApplicationController
 
     if !params[:next_playlist_entry_id].nil?
       next_entry = playlist.find(params[:next_playlist_entry_id])
-      entry.append_to(next_entry.previous)      
+      if !next_entry.previous.nil?
+        entry.append_to(next_entry.previous) 
+      else
+        entry.prepend
+      end     
     else
       entry.append_to(playlist.last_in_order)
     end
