@@ -40,7 +40,7 @@ $(document).ready(function(){
             .delegate(".playlist-small .close", "click", playlist.removeEvt)
             .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
   
-  $(".navbar-form").submit(submitSearch);
+  $(".navbar-form, .sidebar-nav").submit(submitSearch);
   $(".new_playlist").bind('ajax:success', function(evt, data, status, xhr){
     $('.playlist-title').html(' - <a class="btn-link" href="/playlists/'+data.id+'">'+data.title+'</a>');
   });

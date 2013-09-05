@@ -33,12 +33,12 @@
         <th></th>
       </tr>
 
-    <% @songs.each do |song| %>
+    <% @playlist_entries.each do |entry| %>
       <tr>
-        <td><%= song.pl_id %></td>
-        <td><%= song.title %></td>
-        <td><%= link_to 'Show', song_path(song.sid), :class => "btn btn-link" %>
-            <%= link_to 'Remove', playlist_playlist_entry_remove_path(@playlist, song.pl_id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
+        <td><%= entry.id %></td>
+        <td><%= entry.song.artist %> - <%= entry.song.title %></td>
+        <td><%= link_to 'Show', song_path(entry.song.sid), :class => "btn btn-link" %>
+            <%= link_to 'Remove', playlist_playlist_entry_remove_path(@playlist, entry.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
       </tr>
     <% end %>
     </table>

@@ -9,7 +9,16 @@
       <span class="icon-bar"></span>
     </button>
     <%= link_to "YouMixr Alpha 0.2", root_path, :class=>"navbar-brand" %>
-  </div>
+
+    <div class="player player-xs"> 
+      <button class="btn btn-inverse btn-xs btn-play">
+        <i class="icon-play icon-white"></i>
+      </button>
+      <button class="btn btn-inverse btn-xs btn-forward">
+        <i class="icon-step-forward icon-white"></i>
+      </button>
+    </div>
+  </div> 
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -38,7 +47,8 @@
           <li><%= link_to "Register", new_user_path %></li> 
           <li><%= link_to "Sign in", new_sessions_path %></li>
         <% else %>
-          <li><p class="navbar-text pull-right"><%= link_to "Eingeloggt als " + current_user.name, users_show_path, :class => "navbar-link" %></P></li>
+          <li><%= link_to "Eingeloggt als " + current_user.name, users_show_path, 
+                      :class => "navbar-link" %></li>
           <li><%= link_to "Logout", log_out_path %></li>
         <% end %>
       </ul>

@@ -22,7 +22,7 @@ class PlaylistsController < ApplicationController
 
     @username = User.find(@playlist.creator).name
 
-    @songs = Song.joins(:playlist_entries).where(playlist_entries: {playlist_id: @playlist.id}).select("playlist_entries.id as pl_id, songs.*")
+    @playlist_entries = PlaylistEntry.where(playlist_id: @playlist.id) #Song.joins(:playlist_entries).where(playlist_entries: {playlist_id: @playlist.id}).select("playlist_entries.id as pl_id, songs.*")
 
     respond_to do |format|
       format.html # show.html.erb

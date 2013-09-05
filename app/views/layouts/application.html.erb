@@ -15,25 +15,29 @@
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-
 </head>
 <body>
-    <%= render "layouts/header" %>
-    <div class="container">
-	   <div id="mainframe">
-        <div class="hidden-player">
-          <div id="ytPlayer"></div>
+  <%= render "layouts/header" %>
+  <div class="container" id="mainframe">
+   
+   <div class="row">
+      <div class="hidden-player">
+        <div id="ytPlayer"></div>
+      </div>
+      <% if notice %>
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>Warning!</strong> <%= notice %>
         </div>
-        <% if notice %>
-          <div class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>Warning!</strong> <%= notice %>
-          </div>
-        <% end %>
-        <%= yield %>
-      </div>      
-    </div><!--/.container-->    
-    <%= render "layouts/footer" %>
+      <% end %>
+    </div>
+    
+    <div class="row">
+      <%= yield %>
+    </div>
+
+  </div><!--/.container-->    
+  <%= render "layouts/footer" %>
 </body>
 <script>
       // 2. This code loads the Youtube IFrame Player API code asynchronously.
