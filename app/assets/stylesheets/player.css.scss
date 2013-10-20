@@ -48,28 +48,39 @@
    margin:5px 10px;
    padding:0px 10px;
    border:1px solid #333;
-   border-width:0px 1px;
-   display:none;
+   border-width:0px 1px;   
    .songtitle{
      vertical-align:middle;
      margin:0px 15px;
      color:#999;
    }   
 }
+.player-lg{
+	display:none;
+}
 .player-xs{
-	display: none !important;
-	border-right:0px;	
-	margin: 10px 0px;
+	display: none;
+	margin: 10px 15px;
 	padding-top: 4px;
 	height: 30px;
+}
+@media (min-width: 980px){
+	.player-xs{
+		display: none !important;
+	}
 }
 @media (max-width: 980px) {
 	.player-xs{
 		display: inline !important;
 		float: right;
 	}
-	li.player{
-		display:none;
+	.player-lg{
+		border: 0px;
+		margin-bottom: 10px;
+		margin-top: 2.5px;
+	}
+	.player-wraper{
+		border-bottom: 1px solid
 	}
 }
 

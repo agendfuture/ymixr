@@ -62,5 +62,5 @@ $(document).ready(function(){
 // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
-  player.ytReady = true; 
+  //player.ytReady = true; 
 };

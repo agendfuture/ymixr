@@ -31,7 +31,8 @@
       </div>
     <% end %>
     <ul class="nav navbar-nav navbar-right">
-        <li class="player"> 
+        <li class="player-wraper"> 
+          <div class="player player-lg">
             <button class="btn btn-inverse btn-xs btn-play">
               <i class="icon-play icon-white"></i>
             </button>
@@ -40,6 +41,7 @@
             </button>
             <span class="songtitle"></span>      
             <div id='progressbar'></div>
+          </div>
         </li>
         <li><%= link_to "Home", home_path %></li>
         <li><%= link_to "Help", help_path %></li>
