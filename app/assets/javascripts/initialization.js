@@ -1,12 +1,17 @@
 function submitSearch(){
   $('.search-result-loading, .search-result-container').show();
   $('.search-result-list').hide();
+  $(".search-result-list").children().remove();
+
+  requestResultTemplate(function(template){ templateCache = template;})
 
   serializedFilters = $(".sidebar-nav :input[name='source_filter']").serializeArray();
   form = $(this);
   serializedFilters.forEach(function(element, index, array){ 
         switch(element.value){
           case "yt":
+            ytSearch(form.find('input[name="song_search"]').val());
+            break;
           case "vi":
             var valuesToSubmit = form.serialize()+'&'+element.name+'='+element.value;
             $.ajax({
@@ -26,11 +31,18 @@ function submitSearch(){
   return false;
 }
 
+function requestResultTemplate(handler){
+  $.get("/songs/soundcloudTemplate").success(handler);
+}
+
 var player, playlist;
+var gapiLoaded = false;
+var templateCache;
 
 $(document).ready(function(){
 
   playlist = new Playlist();
+  playlist.initialize();
   player = new Player(playlist);
 
   $(document).delegate(".player .btn-play", "click", player.togglePlayButton)          
@@ -41,11 +53,10 @@ $(document).ready(function(){
             .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
   
   $(".navbar-form, .sidebar-nav").submit(submitSearch);
+
   $(".new_playlist").bind('ajax:success', function(evt, data, status, xhr){
     $('.playlist-title').html(' - <a class="btn-link" href="/playlists/'+data.id+'">'+data.title+'</a>');
   });
-
-
 
   $(".search-result-list, .playlist-small" ).sortable({
     connectWith: ".connectedSortable",
@@ -58,9 +69,3 @@ $(document).ready(function(){
   $( ".playlist-small" ).on( "sortupdate", playlist.reorder);
    
 });
-
-// 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-function onYouTubeIframeAPIReady() {
-  //player.ytReady = true; 
-};

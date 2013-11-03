@@ -47,10 +47,21 @@
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 </script> 
 
+
 <script src="https://connect.soundcloud.com/sdk.js"></script>
 <script>
   SC.initialize({
     client_id: "4534af5d3c15ffc9c03f4ee826ad5265"
   });
+
+  function gapiOnLoad(){
+    gapi.client.setApiKey('AIzaSyCTTUzmudt7NUSeoR03piIcWW1kA7ocUQI');
+    gapi.client.load('youtube', 'v3', function() { 
+        gapiLoaded = true; 
+        ytLoadThumbnails();
+    });    
+  }
+
 </script>
+<script src="https://apis.google.com/js/client.js?onload=gapiOnLoad"></script>
 </html>

@@ -7,7 +7,10 @@ $.Class("Playlist", {
     }
   },{
    init : function(){      
-      this.playlist_entries = $(".playlist-small li:not(.placeholder)").map(function(index, listElement){return PlaylistEntry.createEntry($(listElement))});
+      this.playlist_entries = $(".playlist-small li:not(.placeholder)").map(function(index, listElement){return PlaylistEntry.createEntry($(listElement))});      
+   },
+   initialize : function(){
+      scLoadThumbnails();
    },
    add : function(event){
       $(".playlist-small .placeholder").hide();
