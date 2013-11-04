@@ -13,15 +13,7 @@ function submitSearch(){
             ytSearch(form.find('input[name="song_search"]').val());
             break;
           case "vi":
-            var valuesToSubmit = form.serialize()+'&'+element.name+'='+element.value;
-            $.ajax({
-                url: form.attr('action'),
-                data: valuesToSubmit
-            }).success(function(result){                      
-                $(".search-result-list").html(result);
-                $('.search-result-loading').hide();
-                $('.search-result-list').show(1000);
-            });
+            viSearch(form.find('input[name="song_search"]').val());
             break;
           case "sc":   
             scSearch(form.find('input[name="song_search"]').val());            

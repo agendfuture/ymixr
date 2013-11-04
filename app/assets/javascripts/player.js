@@ -1,7 +1,6 @@
 /* Player class | wrapper for all the plattform players */
 $.Class("Player",
   {
-    //ytReady: false,
     scReady: false,
     playing: false,
     timer: null,

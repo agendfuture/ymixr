@@ -24,7 +24,7 @@ YoumixrOR::Application.routes.draw do
     end
 
     collection do
-      get 'addSong/:sid', to: 'playlist_entries#create', constraints: {sid: /yt:(\w|-)+|sc:\d+/}
+      get 'addSong/:sid', to: 'playlist_entries#create', constraints: {sid: /yt:(\w|-)+|sc:\d+|vi:\d+/}
       get 'removeSong/:playlist_entry_id', to: 'playlist_entries#destroy', constraints: {playlist_entry_id: /\d+/}
       get 'reorder/:playlist_entry_id/:next_playlist_entry_id', 
           to: 'playlist_entries#reorder', constraints: {playlist_entry_id: /\d+/, next_playlist_entry_id: /\d+/}
@@ -40,7 +40,7 @@ YoumixrOR::Application.routes.draw do
   
   match '/songs/soundcloudTemplate', to: "songs#soundcloudTemplate"
 
-  resources :songs, constraints: {id: /yt:(\w|-)+|sc:\d+/} do  
+  resources :songs, constraints: {id: /yt:(\w|-)+|sc:\d+|vi:\d+/} do  
     member do 
       get 'play'
     end
@@ -48,6 +48,8 @@ YoumixrOR::Application.routes.draw do
       get "search"
     end
   end
+
+  resources :vimeo, controller: :vimeo_wrappers, only: [:index]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

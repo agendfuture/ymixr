@@ -42,10 +42,12 @@ function ytLoadThumbnails(){
   
     request.execute(function(response){
     	var items = response.result.items;
-    	items.forEach(function(track, index, array){
-    		$(".playlist li[data-song-id='yt:"+ track.id +"'] .search-thumbnail")
-    			.css("background-image", "url("+ track.snippet.thumbnails.default.url +")");
-    	});
+      if (!!items){ 
+        items.forEach(function(track, index, array){
+          $(".playlist li[data-song-id='yt:"+ track.id +"'] .search-thumbnail")
+            .css("background-image", "url("+ track.snippet.thumbnails.default.url +")");
+        });
+      }
     });
   }
 }

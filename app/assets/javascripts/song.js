@@ -1,10 +1,12 @@
 $.Class("Song", {
    staticInit : function(id, type, artist, title){
-     switch (type){
-       case "yt":
+    switch (type){
+      case "yt":
          return new YtSong(id, type, artist, title);
-       case "sc":
+      case "sc":
          return new ScSong(id, type, artist, title);
+      case "vi":
+         return new ViSong(id, type, artist, title);
      }
    },
    createFromElement : function(listElement){
@@ -111,5 +113,41 @@ Song.extend("ScSong",{
   },
   seek : function(){
     return Math.round(player.scPlayer.position/1000);
+  }
+});
+
+Song.extend("ViSong",{
+  loadInto : function(player){
+    $.getJSON("http://vimeo.com/api/oembed.json", {
+      url : "http://vimeo.com/" + this.id,
+      width : 640,
+      player_id : "viIframe"
+    }).success(function(response){
+      $("#viPlayer").html(response.html);
+      $("#viPlayer iframe").attr("id", "viIframe");
+      $f("viIframe").addEvent('ready', viPlayerReady);
+    });
+    
+    $(".hidden-player").show();
+  },
+  play : function(player){
+    player.viPlayer.api("play");
+    //player.progressbar.slider("option", "max", player.viPlayer.api() .getDuration());
+    this._super();
+
+  },
+  stop : function(player){
+    player.viPlayer.api("stop");
+    this._super();
+  },
+  pause : function(player){
+    player.viPlayer.api("pause");
+  },
+  skipTo : function(seconds){ 
+    player.viPlayer.api("seekTo", seconds);
+    player.timer.elapsedTime = seconds;
+  },
+  seek : function(){
+    //return (player.ytPlayer.getCurrentTime())?(player.ytPlayer.getCurrentTime()):0;
   }
 });
