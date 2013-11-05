@@ -1,4 +1,4 @@
-function ytSearch(searchString){
+function ytSearch(searchString, show){
 	if (gapiLoaded) {
     var q = $('#search-form input.form-control').val();
     var request = gapi.client.youtube.search.list({
@@ -6,11 +6,14 @@ function ytSearch(searchString){
       part: 'snippet'
     });
   
-    request.execute(ytPrintTracks);
+    request.execute(function(response){
+      ytPrintTracks(response, show);
+      $("#show-yt-results").show();
+    });
   }
 }
 
-function ytPrintTracks(response){
+function ytPrintTracks(response, show){
 	var tracks = response.result.items;
 	var title, clone;
 	if (!!templateCache) {
@@ -21,13 +24,19 @@ function ytPrintTracks(response){
   		clone.find(".artistname").html(title[0]);
   		clone.find(".songtitle").html(title[1]);
   		clone.find("img").attr('src', track.snippet.thumbnails.default.url);
-  		$(".search-result-list").append(clone);
+  		$(".search-result-list-yt").append(clone);
   	}); 
 
     $('.search-result-loading').hide();
-    $('.search-result-list').show(1000);
+    if (show) {$('.search-result-list-yt').show(1000);}
   }
 }
+
+function ytShowResultList(){
+  $('.search-result-list').hide();
+  $('.search-result-list-yt').show(1000)
+}
+
 
 function ytLoadThumbnails(){
 	if (gapiLoaded) {

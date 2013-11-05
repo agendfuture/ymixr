@@ -4,7 +4,11 @@ $.Class("Player",
     scReady: false,
     playing: false,
     timer: null,
-    progressbar: null
+    progressbar: null,
+
+    hidePlayer : function(){
+      $("#ytPlayer, #viPlayer").hide();
+    }
   },
   {
     init : function(playlist) {
@@ -54,6 +58,7 @@ $.Class("Player",
         player.timer.elapsedTime = 0;
       }
       if($(".playlist-small li:not(.placeholder)").length > 0){
+          Player.hidePlayer();
           player.actualSong = Song.createFromElement($(".playlist-small li:not(.placeholder):first"));  
           Player.playing = false;
           player.actualSong.loadInto(player);

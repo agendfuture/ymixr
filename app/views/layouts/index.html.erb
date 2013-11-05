@@ -1,10 +1,17 @@
 <%= render "layouts/searchform" %>
 <%= render "playlists/small_list" %>
 <div class="col-md-8 search-result-container" style="display:none;">
-  <h1>Search Results</h1>        	
+  <h1>Search Results
+  	<button id="show-sc-results" type="button" class="btn btn-default btn-xs pull-right">Soundcloud</button>	
+  	<button id="show-vi-results" type="button" class="btn btn-default btn-xs pull-right">Vimeo</button>
+  	<button id="show-yt-results" type="button" class="btn btn-default btn-xs pull-right">Youtube</button>	
+  </h1>        
+  	
   <div class="search-result-loading">
   	<i class="icon-spinner icon-spin icon-large"></i> Loading ...
   </div>
-  <ul class="search-result-list unstyled connectedSortable"></ul>
+  <ul class="search-result-list search-result-list-yt unstyled connectedSortable"></ul>
+  <ul class="search-result-list search-result-list-sc unstyled connectedSortable"></ul>
+  <ul class="search-result-list search-result-list-vi unstyled connectedSortable"></ul>
 </div>      
 

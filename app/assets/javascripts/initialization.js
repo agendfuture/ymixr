@@ -1,30 +1,34 @@
 function submitSearch(){
   $('.search-result-loading, .search-result-container').show();
-  $('.search-result-list').hide();
+  $('.search-result-list, .search-result-container .btn').hide();
   $(".search-result-list").children().remove();
 
-  requestResultTemplate(function(template){ templateCache = template;})
+  requestResultTemplate();
 
   serializedFilters = $(".sidebar-nav :input[name='source_filter']").serializeArray();
   form = $(this);
+  firstResultPage = serializedFilters[0];
+  if (firstResultPage) {$("#show-"+ firstResultPage.value +"-results").addClass("active");}
   serializedFilters.forEach(function(element, index, array){ 
         switch(element.value){
           case "yt":
-            ytSearch(form.find('input[name="song_search"]').val());
+            ytSearch(form.find('input[name="song_search"]').val(), (firstResultPage.value == element.value));
             break;
           case "vi":
-            viSearch(form.find('input[name="song_search"]').val());
+            viSearch(form.find('input[name="song_search"]').val(), (firstResultPage.value == element.value));
             break;
           case "sc":   
-            scSearch(form.find('input[name="song_search"]').val());            
+            scSearch(form.find('input[name="song_search"]').val(), (firstResultPage.value == element.value));   
+            break;         
         }
       }); 
-  
   return false;
 }
 
-function requestResultTemplate(handler){
-  $.get("/songs/soundcloudTemplate").success(handler);
+function requestResultTemplate(){
+  $.get("/songs/soundcloudTemplate").success(function(template){ 
+    templateCache = template;
+  });
 }
 
 var player, playlist;
@@ -42,8 +46,16 @@ $(document).ready(function(){
             .delegate(".play-song", "click", player.instantPlay)
             .delegate(".playlist-small li:not(.placeholder)", "dblclick", player.instantPlay)                
             .delegate(".playlist-small .close", "click", playlist.removeEvt)
-            .delegate(".player .btn-forward", "click", $.proxy(player.next, player));
-  
+            .delegate(".player .btn-forward", "click", $.proxy(player.next, player))
+            .delegate("#show-yt-results", "click", ytShowResultList)
+            .delegate("#show-sc-results", "click", scShowResultList)
+            .delegate("#show-vi-results", "click", viShowResultList)
+            .delegate(".search-result-container .btn", "click", 
+                          function(element){
+                            $(".search-result-container .btn").removeClass("active");
+                            $(element.target).addClass("active");
+                          });
+
   $(".navbar-form, .sidebar-nav").submit(submitSearch);
 
   $(".new_playlist").bind('ajax:success', function(evt, data, status, xhr){

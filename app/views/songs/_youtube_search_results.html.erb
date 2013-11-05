@@ -11,7 +11,7 @@
     <div>
         <p class="pull-right">
          <%= link_to raw("&times;"), "playlists/"+playlist.to_s+"/remove/yt:" + video.unique_id, :remote=>true, :class=>"close" %>          
-          <span title="âdd to playlist..." class="btn btn-small add-song"><i class='icon-plus-sign'></i></span>
+          <span title="add to playlist..." class="btn btn-small add-song"><i class='icon-plus-sign'></i></span>
           <span title="start playing..." class="btn btn-small play-song"><i class='icon-play'></i></span>
         </p>
       <p class="truncate artistname"><%= videotitle[:author]%></p>

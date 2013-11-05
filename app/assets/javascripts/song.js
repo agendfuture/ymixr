@@ -59,7 +59,7 @@ Song.extend("YtSong",{
           'onStateChange': $.proxy(player.onYtPlayerStateChange, player)
         }
       });
-    $(".hidden-player").show();
+    $("#ytPlayer").show();
   },
   play : function(player){
     player.ytPlayer.playVideo();
@@ -126,15 +126,14 @@ Song.extend("ViSong",{
       $("#viPlayer").html(response.html);
       $("#viPlayer iframe").attr("id", "viIframe");
       $f("viIframe").addEvent('ready', viPlayerReady);
-    });
-    
-    $(".hidden-player").show();
+
+      $("#viPlayer").show();        
+    });   
   },
   play : function(player){
     player.viPlayer.api("play");
-    //player.progressbar.slider("option", "max", player.viPlayer.api() .getDuration());
+    player.viPlayer.currentTime = 0;
     this._super();
-
   },
   stop : function(player){
     player.viPlayer.api("stop");
@@ -148,6 +147,7 @@ Song.extend("ViSong",{
     player.timer.elapsedTime = seconds;
   },
   seek : function(){
-    //return (player.ytPlayer.getCurrentTime())?(player.ytPlayer.getCurrentTime()):0;
+
+    return player.viPlayer.currentTime;
   }
 });
