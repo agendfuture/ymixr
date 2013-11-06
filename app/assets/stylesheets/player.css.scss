@@ -57,6 +57,9 @@
 }
 .player-lg{
 	display:none;
+	margin:5px 0px 10px;
+	position:relative;
+	width: 100%
 }
 .player-xs{
 	display: none;
@@ -76,10 +79,9 @@
 	}
 	.player-lg{
 		border: 0px;
-		margin-bottom: 10px;
-		margin-top: 2.5px;
+		margin:5px 0px 10px;
 	}
-	.player-wraper{
+	.player-wrapper{
 		border-bottom: 1px solid
 	}
 }

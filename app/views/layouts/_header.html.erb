@@ -30,18 +30,19 @@
         </span>
       </div>
     <% end %>
+    <div class="player player-lg nav navbar-left truncate">
+      <button class="btn btn-inverse btn-xs btn-play">
+        <i class="icon-play icon-white"></i>
+      </button>
+      <button class="btn btn-inverse btn-xs btn-forward">
+        <i class="icon-step-forward icon-white"></i>
+      </button>
+      <span class="songtitle"></span>      
+      <div id='progressbar'></div>
+    </div>
     <ul class="nav navbar-nav navbar-right">
-        <li class="player-wraper"> 
-          <div class="player player-lg">
-            <button class="btn btn-inverse btn-xs btn-play">
-              <i class="icon-play icon-white"></i>
-            </button>
-            <button class="btn btn-inverse btn-xs btn-forward">
-              <i class="icon-step-forward icon-white"></i>
-            </button>
-            <span class="songtitle"></span>      
-            <div id='progressbar'></div>
-          </div>
+        <li class="player-wrapper"> 
+          
         </li>
         <li><%= link_to "Home", home_path %></li>
         <li><%= link_to "Help", help_path %></li>

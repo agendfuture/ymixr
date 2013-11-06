@@ -15,10 +15,24 @@
           }
         }
       }
-      
-      .search-form-header{
-        width:300px;
+
+      nav{
+        .collapse{
+          padding-left: 454px;
+          padding-right:330px;
+        }
+
+        .search-form-header{
+          width:300px;
+          margin-left: -300px;
+        }
+
+        ul.navbar-nav{
+          margin-right: -330px !important;
+        }
       }
+      
+      
 
       @media (max-width: 980px) { 
         
