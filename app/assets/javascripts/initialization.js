@@ -50,10 +50,10 @@ $(document).ready(function(){
             .delegate("#show-yt-results", "click", ytShowResultList)
             .delegate("#show-sc-results", "click", scShowResultList)
             .delegate("#show-vi-results", "click", viShowResultList)
-            .delegate(".search-result-container .btn", "click", 
+            .delegate("#show-yt-results, #show-sc-results, #show-vi-results", "click", 
                           function(element){
-                            $(".search-result-container .btn").removeClass("active");
-                            $(element.target).addClass("active");
+                            $("#show-yt-results, #show-sc-results, #show-vi-results").removeClass("active");
+                            $(this).addClass("active");
                           });
 
   $(".navbar-form, .sidebar-nav").submit(submitSearch);
