@@ -1,5 +1,5 @@
-== YouMixr
+== ymixr
 
 Organize your favorite Songs and Videos from common multimedia plattforms indepently. 
 
-Test it on heroku - youmixr.herokuapp.com
+Test it on heroku - ymixr.herokuapp.com
