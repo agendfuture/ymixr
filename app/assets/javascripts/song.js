@@ -55,11 +55,11 @@ Song.extend("YtSong",{
       player.ytPlayer = new YT.Player('ytPlayer', {
         videoId: this.id,
         events: {
-          'onReady': $.proxy(player.ytOnReady, player),
-          'onStateChange': $.proxy(player.onYtPlayerStateChange, player)
+          'onReady': $.proxy(ytOnReady, player),
+          'onStateChange': $.proxy(onYtPlayerStateChange, player)
         }
       });
-    $("#ytPlayer").show();
+    $("#ytPlayer, .hidden-player").show();
   },
   play : function(player){
     player.ytPlayer.playVideo();
@@ -127,27 +127,29 @@ Song.extend("ViSong",{
       $("#viPlayer iframe").attr("id", "viIframe");
       $f("viIframe").addEvent('ready', viPlayerReady);
 
-      $("#viPlayer").show();        
+      $("#viPlayer, .hidden-player").show();        
     });   
   },
   play : function(player){
-    player.viPlayer.api("play");
-    player.viPlayer.currentTime = 0;
+    if (!Player.playing)
+      player.viPlayer.api("play");
+    //
     this._super();
   },
   stop : function(player){
-    player.viPlayer.api("stop");
+    if (Player.playing)
+      player.viPlayer.api("stop");
     this._super();
   },
   pause : function(player){
     player.viPlayer.api("pause");
   },
-  skipTo : function(seconds){ 
-    player.viPlayer.api("seekTo", seconds);
+  skipTo : function(seconds, skippedInVideoPlayer){ 
+    if (!skippedInVideoPlayer)
+      player.viPlayer.api("seekTo", seconds);
     player.timer.elapsedTime = seconds;
   },
   seek : function(){
-
     return player.viPlayer.currentTime;
   }
 });

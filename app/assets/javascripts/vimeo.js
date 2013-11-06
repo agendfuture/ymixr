@@ -38,7 +38,27 @@ function viShowResultList(){
 
 function viPlayerReady(player_id){
   player.viPlayer = $f(player_id);
+  player.viPlayer.currentTime = 0;
   player.viPlayer.api("getDuration", viSetDuration);
+
+  player.viPlayer.addEvent('finish', function(data){ player.next() });
+  player.viPlayer.addEvent('play', playEventHandler);
+  player.viPlayer.addEvent('pause', pauseEventHandler);
+  player.viPlayer.addEvent('seek', function(data){ player.skipTo(data.seconds, true); });
+}
+
+function playEventHandler(){
+  player.viPlayer.addEvent('pause', pauseEventHandler);
+  player.viPlayer.removeEvent('play');
+  if (!Player.playing)
+    player.play();
+}
+
+function pauseEventHandler(){
+  player.viPlayer.addEvent('play', playEventHandler);
+  player.viPlayer.removeEvent('pause');
+  if (Player.playing)
+    player.stop();
 }
 
 function viSetDuration(duration, player_id){

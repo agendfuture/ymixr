@@ -61,7 +61,30 @@ function ytLoadThumbnails(){
   }
 }
 
+// ----------- Player ------------
+function onYtPlayerStateChange(event){
+  switch(event.data){
+    case YT.PlayerState.ENDED:
+      player.next();
+      break;
+    case YT.PlayerState.PLAYING:
+      if(!Player.playing)
+        player.play(event);
+      break;
+    case YT.PlayerState.BUFFERING:
+      player.timer.stop();
+      break;
+    case YT.PlayerState.PAUSED:
+      player.skipTo(player.ytPlayer.getCurrentTime());
+      player.stop();
+      break;     
+  }
+}
 
+function ytOnReady(event){      
+  player.progressbar.show();  
+  player.play();
+}
 
 $.Class("Clock", 
 	{

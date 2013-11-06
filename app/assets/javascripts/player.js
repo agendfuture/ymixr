@@ -25,14 +25,10 @@ $.Class("Player",
             }
           });
       this.timer = new Clock();
-    },
-    ytOnReady : function(event){      
-      player.progressbar.show();  
-      player.play();
-    },
+    },    
     play : function(event){
-      Player.playing = true;
       player.actualSong.play(player);
+      Player.playing = true;
       player.timer.start(this.updateProgressbar, 1000, player.actualSong.seek());
 
       $(".btn-play i").addClass("icon-pause"); 
@@ -66,29 +62,11 @@ $.Class("Player",
         player.stop();
       }      
     },
-    skipTo : function(seconds){      
-      player.actualSong.skipTo(seconds);
-    },
-    onYtPlayerStateChange : function(event){
-      switch(event.data){
-        case YT.PlayerState.ENDED:
-          player.next();
-          break;
-        case YT.PlayerState.PLAYING:
-          if(Player.playing == false)
-            player.play(event);
-          break;
-        case YT.PlayerState.BUFFERING:
-            player.timer.stop();
-          break;
-        case YT.PlayerState.PAUSE:
-            player.stop();
-        default:
-          break;      
-      }
-    },
+    skipTo : function(seconds, skippedInVideoPlayer){      
+      player.actualSong.skipTo(seconds, skippedInVideoPlayer);
+    },    
     togglePlayButton : function(event){
-      if (Player.playing == false){
+      if (!Player.playing){
         if (!player.actualSong)
 	         player.next();
         else
