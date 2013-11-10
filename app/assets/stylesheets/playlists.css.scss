@@ -1,6 +1,7 @@
 // Place all the styles related to the playlists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
 
 .playlist-small {
 	.btn{
@@ -23,7 +24,7 @@
 
 
 
-@media (min-width: 1200px) { /* header 223px + x + 200px */
+@media (min-width: $screen-sm-min) { 
 	.playlist{
     	float:right !important;          
 	}

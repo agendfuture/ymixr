@@ -17,6 +17,10 @@ end
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '3.2.5'
+  gem 'bootstrap-sass', '~> 3.0.2.0'
+  gem 'jquery-rails', '2.0.2'
+  gem "jquery-ui-rails"
+
   gem 'coffee-rails', '3.2.2'
 
   gem "therubyracer"
@@ -29,8 +33,6 @@ group :assets do
 
   gem 'uglifier', '1.2.3'
 end
-
-gem 'jquery-rails', '2.0.2'
 
 group :production do
 	gem 'pg', '0.12.2'
