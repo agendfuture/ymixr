@@ -11,10 +11,14 @@ YoumixrOR::Application.routes.draw do
   
   delete '/histories/:id' => 'histories#destroy'
 
-  #match "/users", to: redirect('/run')
-  get '/users/show', to: 'users#show'
-  get '/users/:id', to: 'users#index', constraints: {id: /\d+/}
-  resources :users
+  resources :users, constraints: {id: /\d+/} do 
+    resources :histories, only: [:show]
+    collection do
+      get 'history', to: 'histories#show'
+      get 'show', to: 'users#show'
+      get 'playlists', to: 'users#playlists'
+    end
+  end
 
   resource :sessions
 

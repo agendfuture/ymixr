@@ -1,5 +1,4 @@
 class Song < ActiveRecord::Base
-  attr_accessible :title, :url, :artist, :sid
 
   has_many :playlist_entries, :dependent => :destroy
   has_many :playlists, through: :playlist_entries

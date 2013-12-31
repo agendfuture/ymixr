@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '~> 3.0'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 gem 'vimeo'
@@ -24,7 +26,7 @@ group :assets do
   gem 'coffee-rails', '3.2.2'
 
   gem "therubyracer"
-  gem "less-rails"
+  #gem "less-rails"
 
   #gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
 

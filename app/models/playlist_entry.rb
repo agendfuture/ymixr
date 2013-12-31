@@ -4,6 +4,8 @@ class PlaylistEntry < ActiveRecord::Base
   belongs_to :playlist
   belongs_to :song
 
+  self.per_page = 10
+
   resort!
   
   def siblings

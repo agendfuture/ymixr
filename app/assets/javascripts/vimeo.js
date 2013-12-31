@@ -1,9 +1,6 @@
 function viSearch(searchString, show){
-	
-  var q = $('#search-form input.form-control').val();
-
-  $.getJSON("/vimeo.json", {
-    query : q
+	$.getJSON("/vimeo.json", {
+    query : searchString
   }).success(function(response){
     viPrintTracks(response, show);
     $("#show-vi-results").show();
@@ -24,7 +21,7 @@ function viPrintTracks(response, show){
   		$(".search-result-list-vi").append(clone);
   	}); 
 
-    $('.search-result-loading').hide();
+    finishSearchRequest();
     if (show) {$('.search-result-list-vi').show(1000);}
   }
 }

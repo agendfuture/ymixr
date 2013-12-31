@@ -1,6 +1,5 @@
 function ytSearch(searchString, show){
 	if (gapiLoaded) {
-    var q = $('#search-form input.form-control').val();
     var request = gapi.client.youtube.search.list({
       q: searchString,      
       part: 'snippet'
@@ -27,7 +26,7 @@ function ytPrintTracks(response, show){
   		$(".search-result-list-yt").append(clone);
   	}); 
 
-    $('.search-result-loading').hide();
+    finishSearchRequest();
     if (show) {$('.search-result-list-yt').show(1000);}
   }
 }

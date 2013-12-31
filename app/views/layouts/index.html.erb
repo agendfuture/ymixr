@@ -1,7 +1,8 @@
-<%= render "layouts/searchform" %>
+
 <%= render "playlists/small_list" %>
-<div class="col-md-8 search-result-container" style="display:none;">
-  <h1>Search Results
+<div class="col-md-8 search-result-container">
+  <%= render "layouts/searchform" %>
+  <h1 class="search-results-header">Search Results
   	<button id="show-sc-results" type="button" class="btn btn-default btn-xs pull-right">Soundcloud</button>	
   	<button id="show-vi-results" type="button" class="btn btn-default btn-xs pull-right">Vimeo</button>
   	<button id="show-yt-results" type="button" class="btn btn-default btn-xs pull-right">Youtube</button>	

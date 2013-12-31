@@ -49,7 +49,9 @@ class UsersController < ApplicationController
  def show
     if logged_in
       @playlists = Playlist.where(creator: current_user.id)
-      @songs = Song.all(:joins => :histories, :conditions => {:histories => {:user_id => current_user.id}}, :select => "histories.played_at as played_at, histories.id as hid, songs.*", :order => "histories.played_at DESC")
+
+      @history_entries = current_user.history_entries.page(params[:page]).order("played_at DESC") 
+
     else
       redirect_to run_path, notice: 'You have to login to see user information!'
     end
@@ -57,5 +59,9 @@ class UsersController < ApplicationController
 
  def edit
    @user = User.find(session[:user_id])
+ end
+
+ def playlists 
+    @playlists = Playlist.where(creator: current_user.id) 
  end
 end

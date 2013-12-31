@@ -5,4 +5,7 @@ class Playlist < ActiveRecord::Base
 
   has_many :playlist_entries, dependent: :destroy
   has_many :songs, through: :playlist_entries
+
+  self.per_page = 5
+
 end

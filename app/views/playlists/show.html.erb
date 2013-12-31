@@ -26,6 +26,7 @@
     </p>
   </div>
   <div class="col-md-8">
+    <%= will_paginate @playlist_entries, renderer: BootstrapPagination::Rails %>
     <table class="table">
       <tr>
         <th>#</th>
@@ -33,9 +34,9 @@
         <th></th>
       </tr>
 
-    <% @playlist_entries.each do |entry| %>
+    <% @playlist_entries.each.with_index do |entry, number| %>
       <tr>
-        <td><%= entry.id %></td>
+        <td><%= number + 1 + @playlist_entries.offset %></td>
         <td><%= entry.song.artist %> - <%= entry.song.title %></td>
         <td><%= link_to 'Show', song_path(entry.song.sid), :class => "btn btn-link" %>
             <%= link_to 'Remove', playlist_playlist_entry_remove_path(@playlist, entry.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>

@@ -1,5 +1,14 @@
 class HistoriesController < ApplicationController
 
+  # GET /users/history
+  def show
+    if logged_in
+      @history_entries = current_user.history_entries.page(params[:page]).order("played_at DESC") 
+    else 
+      redirect_to current_user
+    end 
+  end
+
   # DELETE /histories/1
   # DELETE /histories/1.json
   def destroy

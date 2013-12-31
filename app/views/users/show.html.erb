@@ -39,27 +39,5 @@
 	<div class="well well-lg">Sorry, we cannot find any playlists of you.</div>
 <% end %>	
 
-<h2>Your History</h2>
-<% if !@songs.empty? %>
-	<table class="table table-condensed">
-	  <tr>			  	
-	    <th>Title</th>
-	    <th>Artist</th>
-	    <th>Played</th>
-	    <th></th>
-	  </tr>
-
-	<% @songs.each do |song| %>
-	  <tr>			  	
-	    <td><%= song.title %></td>
-	    <td><%= song.artist %></td>
-	    <td><%= song.played_at.to_datetime.to_formatted_s(:long_ordinal) %></td>
-	    <td><%= link_to 'Play', song_path(song.sid), :class => "btn btn-link" %>
-	    	<%= link_to 'Remove', '/histories/'+song.hid.to_s, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
-	  </tr>
-	<% end %>
-	</table>
-<% else %>
-	<div class="well well-lg">Sorry, we cannot find any songs, that you played.</div>
-<% end %>		
+<%= link_to 'Your History', history_users_path, :class => "btn-link" %>
 

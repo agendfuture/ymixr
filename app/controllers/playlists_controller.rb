@@ -32,7 +32,7 @@ class PlaylistsController < ApplicationController
 
     @username = User.find(@playlist.creator).name
 
-    @playlist_entries = PlaylistEntry.where(playlist_id: @playlist.id) #Song.joins(:playlist_entries).where(playlist_entries: {playlist_id: @playlist.id}).select("playlist_entries.id as pl_id, songs.*")
+    @playlist_entries = @playlist.playlist_entries.page(params[:page])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -112,7 +112,7 @@ class PlaylistsController < ApplicationController
 
   #GET /playlists/:id/select
   def select
-    if !(session[:playlist] = Playlist.find_by_id(params[:id])).nil?      
+    if !(session[:playlist] = Playlist.find(params[:id])).nil?      
       if session[:playlist].published == false
         if !logged_in or (logged_in and session[:playlist].creator != current_user.id)
           flash[:notice] = "The creator of the choosen playlist, marked it as private."

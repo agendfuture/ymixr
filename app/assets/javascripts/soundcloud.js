@@ -17,7 +17,7 @@ function scPrintTracks(tracks, show){
 			$(".search-result-list-sc").append(clone);
   	}); 
 
-    $('.search-result-loading').hide();
+    finishSearchRequest();
     if (show) {$('.search-result-list-sc').show(1000);}
   }
 }

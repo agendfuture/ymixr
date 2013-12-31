@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904164450) do
+ActiveRecord::Schema.define(:version => 20131104184730) do
 
   create_table "histories", :force => true do |t|
     t.datetime "played_at"
@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(:version => 20130904164450) do
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "vimeo_wrappers", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

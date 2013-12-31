@@ -1,0 +1,27 @@
+<h2>Your History</h2>
+<% if !@history_entries.empty? %>
+    <%= will_paginate @history_entries, renderer: BootstrapPagination::Rails %>
+	<table class="table table-condensed">
+	  <tr>			  	
+	    <th>Title</th>
+	    <th>Artist</th>
+	    <th>Played</th>
+	    <th></th>
+	  </tr>
+
+	<% @history_entries.each do |entry| %>
+	  <tr>			  	
+	    <td><%= entry.song.title %></td>
+	    <td><%= entry.song.artist %></td>
+	    <td><%= entry.played_at.to_datetime.to_formatted_s(:long_ordinal) %></td>
+	    <td><%= link_to 'Play', song_path(entry.song.sid), :class => "btn btn-link" %>
+	    	<%= link_to 'Remove', '/histories/' + entry.id.to_s, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %></td>
+	  </tr>
+	<% end %>
+	</table>
+    <%= will_paginate @history_entries, renderer: BootstrapPagination::Rails %>
+
+<% else %>
+	<div class="well well-lg">Sorry, we cannot find any songs, that you played.</div>
+<% end %>		
+

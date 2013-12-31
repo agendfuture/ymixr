@@ -1,0 +1,23 @@
+@import "bootstrap";
+
+header{
+	.dropdown-menu{
+		background-color: #222;
+		.divider{
+			background-color:#333;
+		}
+		li a:hover{
+			background-color: #222;
+		}
+	}
+
+	.btn-group .caret{
+		margin-left: 10px;
+	}	
+
+	@media(max-width: $screen-md-min){
+		li.btn-group{
+			display: inline-block;
+		}		
+	}
+}

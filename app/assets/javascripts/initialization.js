@@ -1,6 +1,6 @@
 function submitSearch(){
   $('.search-result-loading, .search-result-container').show();
-  $('.search-result-list, .search-result-container .btn').hide();
+  $('.search-result-list, .search-results-header .btn').hide();
   $(".search-result-list").children().remove();
 
   requestResultTemplate();
@@ -31,6 +31,11 @@ function requestResultTemplate(){
   });
 }
 
+function finishSearchRequest(){
+  $('.search-result-loading').hide();
+  $('.search-results-header').show();
+}
+
 var player, playlist;
 var gapiLoaded = false;
 var templateCache;
@@ -59,7 +64,7 @@ $(document).ready(function(){
   $(".navbar-form, .sidebar-nav").submit(submitSearch);
 
   $(".new_playlist").bind('ajax:success', function(evt, data, status, xhr){
-    $('.playlist-title').html(' - <a class="btn-link" href="/playlists/'+data.id+'">'+data.title+'</a>');
+    $('.playlist-title').html(' - <a class="btn-link" href="/playlists/' + data.id + '">' + data.title + '</a>');
   });
 
   $(".search-result-list, .playlist-small" ).sortable({

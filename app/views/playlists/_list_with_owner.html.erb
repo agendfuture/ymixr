@@ -1,0 +1,27 @@
+<table class="table table-condensed">
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>User</th>
+    <th>Published</th>
+    <th></th>
+  </tr>
+<% @playlists.each do |playlist| %>
+  <tr>
+    <td><%= playlist.title %></td>
+    <td><%= playlist.description %></td>
+    <td><%= playlist.username %></td>
+    <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
+    <td><%= link_to 'Show', playlist, :class => "btn btn-link" %>
+        <%= link_to 'Play', select_playlist_path(playlist), :class => "btn btn-link" %>
+        <% if logged_in %>
+          <% if current_user.id == playlist.creator %>
+            <%= link_to 'Edit', edit_playlist_path(playlist), :class => "btn btn-link" %>
+          <% end %>
+        
+          <%= link_to 'Destroy', playlist, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-link" %>
+        <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
