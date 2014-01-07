@@ -3,3 +3,5 @@
 Organize your favorite Songs and Videos from common multimedia plattforms indepently. 
 
 Test it on heroku - ymixr.herokuapp.com
+
+{<img src="https://codeclimate.com/github/agendfuture/ymixr.png" />}[https://codeclimate.com/github/agendfuture/ymixr]
