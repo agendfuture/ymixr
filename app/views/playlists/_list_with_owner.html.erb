@@ -10,12 +10,14 @@
   <tr>
     <td><%= playlist.title %></td>
     <td><%= playlist.description %></td>
-    <td><%= playlist.username %></td>
-    <td><input type="checkbox" disabled <%= (playlist.published)? "checked": "" %> value=""></td>
+    <td><%= playlist.creator.name %></td>
+    <td>
+      <%= check_box_tag 'published', '', playlist.published, :disabled => true %>
+    </td>
     <td><%= link_to 'Show', playlist, :class => "btn btn-link" %>
         <%= link_to 'Play', select_playlist_path(playlist), :class => "btn btn-link" %>
-        <% if logged_in %>
-          <% if current_user.id == playlist.creator %>
+        <% if logged_in? %>
+          <% if current_user == playlist.creator %>
             <%= link_to 'Edit', edit_playlist_path(playlist), :class => "btn btn-link" %>
           <% end %>
         

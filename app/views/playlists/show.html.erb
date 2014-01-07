@@ -12,12 +12,12 @@
 
     <p>
       <b>User:</b>
-      <%= @username %>
+      <%= @playlist.creator.name %>
     </p>
 
     <p>
       <b>Published:</b>
-      <input type="checkbox" disabled <%= (@playlist.published)? "checked": "" %> value="">
+      <%= check_box_tag 'published', '', @playlist.published, :disabled => true %>
     </p>
 
     <p>

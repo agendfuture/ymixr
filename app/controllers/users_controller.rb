@@ -1,41 +1,33 @@
 class UsersController < ApplicationController
- def index
-  if logged_in and current_user.id == params[:id].to_i
-    redirect_to users_show_path
-    return
+  before_filter :signed_in_user, :only => [:show]
+
+  before_filter :set_user, :only => [:show, :playlists, :update, :edit]
+  before_filter :set_playlists, :only => [:playlists, :show]
+
+  rescue_from ActiveRecord::RecordNotFound do
+    flash[:notice] = 'The User you tried to access does not exist'
+    redirect_to run_path   
   end
 
- 	@user = User.find(params[:id]) 
-  @playlists = Playlist.where(creator: @user.id, published: true )
+  def show
+    @history_entries = @user.history_entries.page(params[:page]).order("played_at DESC") 
+  end
 
-	respond_to do |format|
-    format.html         	
- 	end
+  def new
+    @user = User.new
+  end
 
- 	rescue ActiveRecord::RecordNotFound
-	 	respond_to do |format|
-      flash[:notice] = "Es existiert kein Benutzer mit der ID " + params[:id]
-	  	format.html  { render action: "no_user"}        	
-	  end 
-  flash.clear
- end
-
- def new
-   @user = User.new
- end
-
- def create
-   @user = User.new(params[:user])
-   if @user.save
-     redirect_to new_sessions_path, :notice => "Welcome to youmixr!"
-   else
-     redirect_to new_user_path, :notice => "Sorry! An Error occured. Please repeat the previous steps."
-   end
- end
+  def create
+    @user = User.create(params[:user])
+    if @user.save
+      redirect_to new_sessions_path, :notice => "Welcome to youmixr!"
+    else
+      redirect_to new_user_path, :notice => "Sorry! An Error occured. Please repeat the previous steps."
+    end
+  end
  
- def update
-   @user = User.find(session[:user_id])
-   respond_to do |format|
+  def update
+    respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
@@ -44,24 +36,20 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
- end
+  end
 
- def show
-    if logged_in
-      @playlists = Playlist.where(creator: current_user.id)
+  def edit
+  end
 
-      @history_entries = current_user.history_entries.page(params[:page]).order("played_at DESC") 
+  def playlists 
+  end
 
-    else
-      redirect_to run_path, notice: 'You have to login to see user information!'
+  private 
+    def set_user
+      @user = User.find(params[:id])
     end
- end
 
- def edit
-   @user = User.find(session[:user_id])
- end
-
- def playlists 
-    @playlists = Playlist.where(creator: current_user.id) 
- end
+    def set_playlists
+      @playlists = @user.playlists
+    end
 end

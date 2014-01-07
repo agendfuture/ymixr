@@ -1,15 +1,15 @@
 <div class="panel panel-default">	
 	<div class="panel-heading">
-		User - <%= link_to raw('Edit <i class="icon-edit"></i>'), edit_user_path(current_user) %>
+		User - <%= link_to raw('Edit <i class="icon-edit"></i>'), edit_user_path(@user) %>
 	</div>
 	<div class="panel-body">
 		<p>
 		  <b>Name:</b>
-		  <%= current_user.name %>
+		  <%= @user.name %>
 		</p>
 		<p>
 		  <b>Email:</b>
-		  <%= current_user.email %>
+		  <%= @user.email %>
 		</p>
 	</div>
 </div>
@@ -39,5 +39,5 @@
 	<div class="well well-lg">Sorry, we cannot find any playlists of you.</div>
 <% end %>	
 
-<%= link_to 'Your History', history_users_path, :class => "btn-link" %>
+<%= link_to 'Your History', user_histories_path(@user), :class => "btn-link" %>
 

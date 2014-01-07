@@ -23,14 +23,12 @@
       <%= f.text_area :description, :class => "form-control", :rows => 3 %>
     </div>
   </div>
-  <% if !@username.nil? %>
   <div class="form-group">
     <%= f.label :creator, :class => "col-lg-2 control-label" %>
     <div class="col-lg-10">
-      <p class="form-control-static"><%= @username.name %></p>
+      <p class="form-control-static"><%= @playlist.creator.name %></p>
     </div>
   </div>
-  <% end %> 
   <div class="form-group">
     <%= f.label :published, :class => "col-lg-2 control-label" %>
     <div class="col-lg-10">
@@ -44,7 +42,7 @@
       <% if !@playlist.id.nil? %>
         <%= link_to 'Play', select_playlist_path(@playlist), :class => "btn btn-link" %>
       <% end %>
-      <%= link_to 'Back', users_show_path, :class => "btn btn-link" %>
+      <%= link_to 'Back', user_path(current_user), :class => "btn btn-link" %>
     </div>
   </div>
 <% end %>

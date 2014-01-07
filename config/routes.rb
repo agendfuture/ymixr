@@ -8,19 +8,16 @@ YoumixrOR::Application.routes.draw do
 
   get "log_out" => "sessions#destroy", as: :log_out
   match "session", to: "static_pages#index"
+  resource :sessions
   
-  delete '/histories/:id' => 'histories#destroy'
+  resources :histories, :only => [:delete, :show]
 
-  resources :users, constraints: {id: /\d+/} do 
-    resources :histories, only: [:show]
-    collection do
-      get 'history', to: 'histories#show'
-      get 'show', to: 'users#show'
-      get 'playlists', to: 'users#playlists'
+  resources :users, constraints: {id: /\d+/}, except: [:index] do 
+    resources :histories, only: [:index]
+    member do
+      get 'playlists', to: 'users#playlists', constraints: {id: /\d+/}
     end
   end
-
-  resource :sessions
 
   resources :playlists, constraints: {id: /\d+/} do
     member do

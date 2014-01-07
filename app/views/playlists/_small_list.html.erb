@@ -7,7 +7,7 @@
   	<% end %>
   </h3>
    
-	<% if logged_in %>  
+	<% if logged_in? %>  
 	  <%= form_tag(playlists_path(format: :json), remote: true, :class=>"new_playlist") do |f| %>
 	  	<button class="btn btn-inverse btn-small"><i class="icon-white icon-plus icon-large"></i></button>
 	  	<%= text_field_tag 'playlist[title]', nil, placeholder: 'Enter Playlist Title...' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131104184730) do
+ActiveRecord::Schema.define(:version => 20140107201501) do
 
   create_table "histories", :force => true do |t|
     t.datetime "played_at"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20131104184730) do
   create_table "playlists", :force => true do |t|
     t.string   "title"
     t.string   "description", :default => ""
-    t.integer  "creator"
+    t.integer  "creator_id"
     t.boolean  "published",   :default => true
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
