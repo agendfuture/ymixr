@@ -1,40 +1,48 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.0'
-gem 'will_paginate', '~> 3.0'
-gem 'will_paginate-bootstrap'
+gem 'rails', '~> 4.0.3'
+
 
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 gem 'vimeo'
 
-gem 'resort'
+#gem 'resort'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development do
-	gem 'sqlite3', '1.3.5'
+	gem 'sqlite3'
 end
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '3.2.5'
-  gem 'bootstrap-sass', '~> 3.0.2.0'
-  gem 'jquery-rails', '2.0.2'
-  gem "jquery-ui-rails"
 
-  gem 'coffee-rails', '3.2.2'
+# Use SCSS for stylesheets
+gem 'sass-rails'
 
-  gem "therubyracer"
-  #gem "less-rails"
+gem 'bootstrap-sass'
 
-  #gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+gem "jquery-ui-rails"
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails'
 
-  gem 'uglifier', '1.2.3'
-end
+# pagination
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
+gem "therubyracer"
+#gem "less-rails"
+
+#gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
+
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', :platforms => :ruby
+
+gem 'uglifier'
+
 
 group :production do
 	gem 'pg', '0.12.2'
