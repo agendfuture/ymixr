@@ -1,20 +1,37 @@
+<div class="container" id="mainframe">
+   
+   <section>
+      <div class="hidden-player">
+        <div id="ytPlayer"></div>
+        <div id="viPlayer"></div>
+      </div>
+      <% if notice %>
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>Warning!</strong> <%= notice %>
+        </div>
+      <% end %>
+    </section>
+    
+    <section class="row-fluid">
 
-<div class="container">
-<div class="row">
-        <%= render "sidebar" %> 
-        <div class="col-md-6 jumbotron">
-		<h1>Search Results</h1>
+      <%= render "sidebar" %> 
+      <div class="col-md-6 jumbotron">
+        <h1>Search Results</h1>
 
-      <table class="table table-stripped">
-        <tr>
-          <th>
-            <%= t("activerecord.attributes.video.title", :default => t("activerecord.labels.title", :default => "Title")) %>
-          </th>
-          <th>&nbsp;</th>
-	  <th>Player</th>
-        </tr>
-	<%= if !@search_route.nil? then render @search_route end%>	
+        <table class="table table-stripped">
+          <tr>
+            <th>
+              <%= t("activerecord.attributes.video.title", :default => t("activerecord.labels.title", :default => "Title")) %>
+            </th>
+            <th>&nbsp;</th>
+            <th>Player</th>
+          </tr>
+          <%= if !@search_route.nil? then render @search_route end%>  
         </table>
-      <div><!--/span-->
-      </div><!--/span-->
-    </div><!--/span-->
+      </div>
+
+    </section>
+
+  </div><!--/.container-->
+

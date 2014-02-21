@@ -1,11 +1,11 @@
 @import "bootstrap";
 
 body {
-  padding-top: 60px;
+  padding-top: 50px;
   padding-bottom: 40px;
 }
 .container-fluid {
-  margin-top: 20px
+  //margin-top: 20px
 }
 .sidebar-nav {
   padding: 9px;
@@ -19,23 +19,18 @@ body {
 
 @media(max-width: $screen-md-min){
     nav .collapse{
-      padding-left: 154px !important;
+      //padding-left: 154px !important;
     }
   }
 
 nav{
   .collapse{
-    padding-left: 454px;
-    padding-right:330px;
+    //padding-left: 454px;
+    //padding-right:330px;
   }
 
   .search-form-header{
     width:300px;
-    margin-left: -300px;
-  }
-
-  ul.navbar-nav{
-    margin-right: -330px !important;
   }
 
   .navbar-form .btn{
@@ -104,3 +99,30 @@ footer{
   }
 }
 
+// mixr page
+
+.mixr{
+  margin-top:10px;
+}
+
+// Landingpage
+
+.landingpage{
+  background-color: #dcd758 ;
+  height:500px;
+  color:#45808d;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top:0px;
+  padding-top: 50px;
+  + footer{
+    margin-top:250px;
+  }
+  .center-block{
+    margin-top:20px;
+  }
+  a:visited{
+    color:#ffffff;
+  }
+}

@@ -1,8 +1,13 @@
 <footer>
-  <div class="container">
-    <hr>
-    <%= link_to "ymixr Alpha 0.2", root_path, :class=>"navbar-brand" %>
-    <%= link_to raw("&copy; Johannes Koch 2013"), "mailto:jkoch.contact@gmail.com?subject=ymixr%20Review",
-    		:class => "pull-right" %>
-  </div>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+      	<%= link_to "ymixr Alpha 0.2", root_path, :class=>"navbar-brand" %>
+      </div>
+
+      <p class="navbar-text navbar-right">
+  	    <%= link_to raw("&copy; Johannes Koch 2013"), "mailto:jkoch.contact@gmail.com?subject=ymixr%20Review", :class => "navbar-link" %>
+      </p>
+    </div>
+  </nav>
 </footer>
