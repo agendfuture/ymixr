@@ -1,4 +1,4 @@
-class Ymixr.Models.PlaylistEntry extends Backbone.Model
+class Ymixr.Models.PlaylistEntry extends Backbone.RelationalModel
   paramRoot: 'playlist_entry'
 
   defaults:

@@ -1,4 +1,4 @@
-$.Class("Song", {
+$.Class("Song2", {
    staticInit : function(id, type, artist, title){
     switch (type){
       case "yt":
@@ -11,7 +11,7 @@ $.Class("Song", {
    },
    createFromElement : function(listElement){
       var identifier = listElement.attr("data-song-id").split(":");
-      return Song.staticInit( identifier[1],
+      return Song2.staticInit( identifier[1],
                               identifier[0],
                               listElement.find(".artistname").text(),
                               listElement.find(".songtitle").text());
@@ -45,7 +45,7 @@ $.Class("Song", {
    identifier : function(){ return this.type + ":" + this.id; }
 });
 
-Song.extend("YtSong",{
+Song2.extend("YtSong",{
   loadInto : function(player){
     if(player.ytPlayer){
       player.ytPlayer.loadVideoById(this.id);
@@ -82,7 +82,7 @@ Song.extend("YtSong",{
   }
 });
 
-Song.extend("ScSong",{
+Song2.extend("ScSong",{
   loadInto : function(player){
     SC.get("/tracks/"+this.id, {limit: 1}, function(tracks){
       player.progressbar.slider("option", "max", Math.round(tracks.duration/1000));
@@ -116,7 +116,7 @@ Song.extend("ScSong",{
   }
 });
 
-Song.extend("ViSong",{
+Song2.extend("ViSong",{
   loadInto : function(player){
     $.getJSON("http://vimeo.com/api/oembed.json", {
       url : "http://vimeo.com/" + this.id,

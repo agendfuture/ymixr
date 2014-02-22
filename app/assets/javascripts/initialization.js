@@ -42,7 +42,7 @@ var templateCache;
 
 $(document).ready(function(){
 
-  playlist = new Playlist();
+  playlist = new Playlist2();
   playlist.initialize();
   player = new Player(playlist);
 

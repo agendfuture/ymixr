@@ -55,7 +55,7 @@ $.Class("Player",
       }
       if($(".playlist-small li:not(.placeholder)").length > 0){
           Player.hideVideoPlayer();
-          player.actualSong = Song.createFromElement($(".playlist-small li:not(.placeholder):first"));  
+          player.actualSong = Song2.createFromElement($(".playlist-small li:not(.placeholder):first"));  
           Player.playing = false;
           player.actualSong.loadInto(player);
       }else{
