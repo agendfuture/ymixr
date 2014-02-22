@@ -31,6 +31,10 @@ gem "jquery-ui-rails"
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
 
+#backbone.js integration
+gem 'rails-backbone'
+gem 'backbone-relational-rails'
+
 # pagination
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
