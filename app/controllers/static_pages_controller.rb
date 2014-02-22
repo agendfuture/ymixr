@@ -6,9 +6,9 @@ class StaticPagesController < ApplicationController
   end
 
   def run
-	   if !session[:playlist].nil?
-        @playlist_entries = PlaylistEntry.where(playlist_id: session[:playlist].id).ordered
-      end
+    unless session[:playlist].nil?
+      @playlist = Playlist.find(session[:playlist])
+    end
 
 	   render template: "layouts/index"
   end

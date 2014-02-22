@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 4.0.3'
 
+# provides list functionality for activerecord model
+gem 'acts_as_list'
 
 gem 'youtube_it', :git => "git://github.com/kylejginavan/youtube_it.git"
 gem 'vimeo'

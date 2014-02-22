@@ -56,7 +56,7 @@ class PlaylistsController < ApplicationController
 
     respond_to do |format|
       if @playlist.save
-        session[:playlist] = @playlist
+        session[:playlist] = @playlist.id
 
         format.html { redirect_to @playlist, notice: 'Playlist was successfully created.' }
         format.json { render json: @playlist, status: :created, location: @playlist }
@@ -102,7 +102,7 @@ class PlaylistsController < ApplicationController
         end        
       end
 
-    session[:playlist] = @playlist
+    session[:playlist] = @playlist.id
     redirect_to run_path 
   end
 

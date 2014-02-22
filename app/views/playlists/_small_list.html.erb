@@ -1,8 +1,8 @@
 <div class="col-md-4 playlist">
   <h3>Playlist
-   	<% if !session[:playlist].nil? %>
+   	<% if !@playlist.nil? %>
   		 	<span class="playlist-title">
-         - <%= link_to session[:playlist].title, playlist_path(session[:playlist].id), class: "btn-link" %>
+         - <%= link_to @playlist.title, playlist_path(@playlist), class: "btn-link" %>
         </span>
   	<% end %>
   </h3>
@@ -15,10 +15,10 @@
 	<% end %>
 
   <ul class="search-results list-unstyled playlist-small">
-   <% if @playlist_entries.nil? %>
+   <% if @playlist.playlist_entries.nil? %>
     <li class="placeholder">Playlist ist leer...</li>
    <% else %>
-    <% @playlist_entries.each do |entry| %>
+    <% @playlist.playlist_entries.each do |entry| %>
       <li class="clearfix" data-song-id="<%= entry.song.sid %>" data-entry-id="<%= entry.id %>">
         <div class="search-thumbnail thumbnail pull-left">
          
@@ -26,7 +26,7 @@
         </div>
         <div>
             <p class="pull-right">
-             <%= link_to raw("&times;"), playlist_playlist_entry_remove_path(session[:playlist].id, entry.id), 
+             <%= link_to raw("&times;"), playlist_playlist_entry_remove_path(@playlist, entry.id), 
                     :method => :delete, :remote=>true, :class=>"close" %> 
                      
              <%= link_to raw("<i class='icon-plus-sign'></i>"), "playlists/addSong/" + entry.song.sid, :remote=>true, :class=>"btn btn-small add-song" %>          

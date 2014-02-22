@@ -16,15 +16,15 @@ class PlaylistEntriesController < ApplicationController
   # GET  /playlists/addSong/:sid
   # GET  /playlists/addSong/:sid.js
  def create    
-  params[:id] = (params[:id] == session[:playlist].id)? params[:id] : session[:playlist].id
+  params[:id] = (params[:id] == session[:playlist])? params[:id] : session[:playlist]
 
+  playlist = Playlist.find(params[:id])
   song = Song.findOrCreate(params[:sid], params[:title], params[:artist])
 
-  entry = PlaylistEntry.create(playlist_id: params[:id], song_id: song.id)
+  playlist.songs << song 
 
-  if !entry.save
-    flash[:notice] = "Error while creating a new playlist entry!"
-  end
+  entry = playlist.playlist_entries.where(song_id: song.id).take
+  entry.move_to_bottom
 
   respond_to do |format|
     format.html {render :text => "{\"id\" : #{entry.id}}"}
@@ -36,7 +36,7 @@ class PlaylistEntriesController < ApplicationController
  # DELETE /playlists/:playlist_id/playlist_entries/:playlist_entry_id/remove Deprecated!!!
  # GET    /playlists/removeSong/:playlist_entry_id
  def destroy
-  if !(entry = PlaylistEntry.find(params[:playlist_entry_id])).nil?
+  unless (entry = PlaylistEntry.find(params[:playlist_entry_id])).nil?
     entry.destroy      
   else
     flash[:notice] = "Cannot find any Playlist Entry!"
@@ -47,19 +47,19 @@ class PlaylistEntriesController < ApplicationController
  # GET /playlists/reorder/:playlist_entry_id/:next_playlist_entry_id
  # GET /playlists/reorder/:playlist_entry_id
  def reorder
-  playlist = PlaylistEntry.where(playlist_id: session[:playlist].id)
-  entry = playlist.find(params[:playlist_entry_id])
-
-  if !params[:next_playlist_entry_id].nil?
-    next_entry = playlist.find(params[:next_playlist_entry_id])
-    if !next_entry.previous.nil?
-      entry.append_to(next_entry.previous) 
-    else
-      entry.prepend
-    end     
-  else
-    entry.append_to(playlist.last_in_order)
+  entry = PlaylistEntry.where(id: params[:playlist_entry_id], playlist_id: session[:playlist]).take
+  if entry.nil?
+    render nothing: true
   end
-  render :nothing => true
+
+  next_entry = PlaylistEntry.where(id: params[:next_playlist_entry_id], playlist_id: session[:playlist]).take
+
+  unless next_entry.nil?
+    entry.insert_at(next_entry.position) 
+  else
+    entry.move_to_bottom
+  end
+
+  render nothing: true
  end
 end
