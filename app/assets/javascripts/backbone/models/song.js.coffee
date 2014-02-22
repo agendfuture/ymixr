@@ -1,4 +1,4 @@
-class YoumixrOR.Models.Song extends Backbone.Model
+class Ymixr.Models.Song extends Backbone.Model
   paramRoot: 'song'
 
   defaults:
@@ -9,6 +9,6 @@ class YoumixrOR.Models.Song extends Backbone.Model
     play_count: null
     sid: null
 
-class YoumixrOR.Collections.SongsCollection extends Backbone.Collection
-  model: YoumixrOR.Models.Song
+class Ymixr.Collections.SongsCollection extends Backbone.Collection
+  model: Ymixr.Models.Song
   url: '/songs'

@@ -18,6 +18,6 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone-relational
-//= require backbone/youmixr_or
+//= require backbone/ymixr
 //= require_tree .
 //= require bootstrap

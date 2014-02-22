@@ -1,4 +1,4 @@
-class YoumixrOR.Models.Playlist extends Backbone.Model
+class Ymixr.Models.Playlist extends Backbone.Model
   paramRoot: 'playlist'
 
   defaults:
@@ -7,6 +7,6 @@ class YoumixrOR.Models.Playlist extends Backbone.Model
     creator: null
     play_count: null
 
-class YoumixrOR.Collections.PlaylistsCollection extends Backbone.Collection
-  model: YoumixrOR.Models.Playlist
+class Ymixr.Collections.PlaylistsCollection extends Backbone.Collection
+  model: Ymixr.Models.Playlist
   url: '/playlists'
