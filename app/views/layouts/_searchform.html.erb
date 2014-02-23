@@ -1,19 +1,21 @@
-<%= form_tag(search_songs_path, :remote => true, :class => "sidebar-nav well well-lg") do -%>
+<div class="row panel panel-default">
+  <div class="panel-heading"><h3>Filter !!!</h3></div>
+  <%= form_tag(search_songs_path, :remote => true, :class => "sidebar-nav panel-body") do -%>
 
-  <div class="input-group search-form-sidebar">
-    <input type="text" name="song_search" placeholder="Search" class="form-control">
-    <button class="btn btn-default btn-lg btn-block" type="submit">Go!</button>
-  </div>
-
-  <h3>Filter Plattform</h3>
-  <% params[:source_filter] = (params[:source_filter].nil?) ? "yt" : params[:source_filter] %>
-  <%- Youmixr::Plattform.each_pair do |key, value| %>
-    <div class="checkbox">
-      <label>
-        <input name="source_filter" <%=if !params[:source_filter].nil? && params[:source_filter].include?(key) then "checked" end %> value="<%= key %>" type="checkbox"> <%= value %>
-      </label>
+    <div class="form-group search-form-sidebar visible-xs">
+      <input type="text" name="song_search" placeholder="Search" class="form-control">
+      <button class="btn btn-default btn-lg btn-block" type="submit">Go!</button>
     </div>
-  <% end %>
-<% end -%>
+
+    <% params[:source_filter] = (params[:source_filter].nil?) ? "yt" : params[:source_filter] %>
+    <%- Youmixr::Plattform.each_pair do |key, value| %>
+      <div class="checkbox">
+        <label>
+          <input name="source_filter" <%=if !params[:source_filter].nil? && params[:source_filter].include?(key) then "checked" end %> value="<%= key %>" type="checkbox"> <%= value %>
+        </label>
+      </div>
+    <% end %>
+  <% end -%>
+</div>
 
 

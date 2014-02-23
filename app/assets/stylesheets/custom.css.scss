@@ -4,31 +4,15 @@ body {
   padding-top: 50px;
   padding-bottom: 40px;
 }
-.container-fluid {
-  //margin-top: 20px
-}
+
 .sidebar-nav {
   padding: 9px;
-  .search-form-sidebar{
-    display:none;
-    button{
-      margin-top: 10px
-    }
+  .search-form-sidebar button{
+    margin-top: 10px
   }
 }
 
-@media(max-width: $screen-md-min){
-    nav .collapse{
-      //padding-left: 154px !important;
-    }
-  }
-
 nav{
-  .collapse{
-    //padding-left: 454px;
-    //padding-right:330px;
-  }
-
   .search-form-header{
     width:300px;
   }
@@ -38,30 +22,6 @@ nav{
   }
 }
       
-      
-
-@media (max-width: $screen-md-min) { 
-  
-  /* Enable use of floated navbar text */
-
-  .navbar-text.pull-right {
-    float: none;
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-  .search-form-header{
-    display:none;
-  }
-
-  .sidebar-nav{
-    margin: 10px;
-    .search-form-sidebar{
-      display:inline;
-    }
-  }
-
-}
-
 .truncate {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -101,7 +61,7 @@ footer{
 
 // mixr page
 
-.mixr{
+#mainframe{
   margin-top:10px;
 }
 

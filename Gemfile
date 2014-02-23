@@ -36,12 +36,8 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
 gem "therubyracer"
-#gem "less-rails"
 
-#gem 'less-rails-bootstrap', '~> 3.0.0.wip', github: 'sinfin/less-rails-bootstrap-3'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', :platforms => :ruby
+gem 'turbolinks'
 
 gem 'uglifier'
 

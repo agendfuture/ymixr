@@ -15,7 +15,7 @@
 	<% end %>
 
   <ul class="search-results list-unstyled playlist-small">
-   <% if @playlist.playlist_entries.nil? %>
+   <% if @playlist.nil? or @playlist.playlist_entries.nil? %>
     <li class="placeholder">Playlist ist leer...</li>
    <% else %>
     <% @playlist.playlist_entries.each do |entry| %>

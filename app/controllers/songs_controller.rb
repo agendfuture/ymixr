@@ -90,7 +90,7 @@ class SongsController < ApplicationController
 
     @song = Song.findOrCreate(params[:id], params[:title], params[:artist]) 
 
-    if logged_in
+    if logged_in?
       @history_entry = History.create(user_id: current_user.id, song_id: @song.id, played_at: Time.now)
       if !@history_entry.save
         flash[:notice] = "Error while creating a history entry for the current song."

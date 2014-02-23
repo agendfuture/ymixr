@@ -47,7 +47,7 @@ $.Class("Song", {
 
 Song.extend("YtSong",{
   loadInto : function(player){
-    if(player.ytPlayer){
+    if(player.ytPlayer !== undefined){
       player.ytPlayer.loadVideoById(this.id);
       player.play();
     }

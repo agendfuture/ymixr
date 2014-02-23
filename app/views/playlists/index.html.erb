@@ -1,10 +1,8 @@
-<section class="container">
-  <div class="row-fluid">
-  		<h1>Listing playlists <%= link_to raw('New Playlist <i class="icon-plus"></i>'), new_playlist_path, :class => "btn btn-link" %></h1>
+<div class="row-fluid">
+  <h1>Listing playlists <%= link_to raw('New Playlist <i class="icon-plus"></i>'), new_playlist_path, :class => "btn btn-link" %></h1>
 
-  		<%= render :partial => "list_with_owner" %>
-  </div>
-</section>
+  <%= render :partial => "list_with_owner" %>
+</div>    
 
 
 

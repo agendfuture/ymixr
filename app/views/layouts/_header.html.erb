@@ -24,7 +24,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <%= form_tag(search_songs_path, :id => "search-form",:remote => true, :class => "navbar-form navbar-left search-form-header", :role => "search") do -%>
+      <%= form_tag(search_songs_path, :id => "search-form",:remote => true, :class => "navbar-form navbar-left search-form-header hidden-xs", :role => "search") do -%>
         <div class="input-group">
           <input name="song_search" type="text" class="form-control">
           <span class="input-group-btn">

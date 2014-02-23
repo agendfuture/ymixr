@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "bootstrap";
+
+.search-result-list{
+  @media (max-width: $screen-xs-max) {
+      padding-left:0px;
+  }
+}
+
 .search-result-list, .search-results{
   margin-top:10px;
   p.pull-right {
@@ -24,8 +32,8 @@
   }
   :hover p.pull-right {
     opacity:1;
-  }
-  li {
+  }  
+  li {    
     display:block;
     margin:10px 0px;
     padding:5px;
@@ -57,13 +65,17 @@
   }
 }
 
+ #show-sc-results, #show-vi-results, #show-yt-results{
+  display:none;
+}
+
 .search-result-container{  
-  .search-result-loading{
-    text-align:center;
-    display:none;
+  .search-result-header p{    
+    margin-bottom: 40px;      
   }
-  .search-results-header{
+  .search-result-loading{
     display:none;
+    text-align: center; 
   }
   .btn{
     margin-right:5px;
